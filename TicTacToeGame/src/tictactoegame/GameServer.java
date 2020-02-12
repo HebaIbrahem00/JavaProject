@@ -26,15 +26,14 @@ import java.util.Vector;
  *
  * @author BOB
  */
-public class GameServer extends Application {
-  
-    
+public class GameServer extends Application {   
     @Override
     public void start(Stage primaryStage) throws IOException {
         Button btn = new Button();
         btn.setText("Turn Server OFF");
-          final Background serverInfo =new Background();
+        final Background serverInfo =new Background();
         serverInfo.start();
+        
         
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -50,12 +49,10 @@ public class GameServer extends Application {
         });
         
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
+        root.getChildren().add(btn); 
         Scene scene = new Scene(root, 300, 250);
        Thread curr= Thread.currentThread();
-     //  int noOfThreads= Thread.activeCount();
-       
+     //  int noOfThreads= Thread.activeCount(); 
        System.out.println(curr);
        //   System.out.println(noOfThreads);
         primaryStage.setTitle("Hello World!");
@@ -63,25 +60,14 @@ public class GameServer extends Application {
         primaryStage.show();
     }
 
-    /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
-     */
-    
+   
     public class Background extends Thread
     {
         
         ServerSocket server = new ServerSocket(9000);//creating a socket and binding it to a port with loopback ip
-      
-       XO c;
+        XO c;
         Socket client;
-        public Background() throws IOException {
-        
-     }
+        public Background() throws IOException {}
 
         @Override
         public void run() {
@@ -126,19 +112,19 @@ public class GameServer extends Application {
         {
             String opponent;
             try {
-   opponent=   receiveOn.readLine();
-                for(XO p :clients_sockets)
-                {
-                /* this loop shall iterate over client sockets and find the suitable one get his outputstream 
-                 * and send to him the what ever
-                 */
-                    if (p.getPlayer()==opponent)
-                    { 
-                      DataInputStream rev =new DataInputStream(p.getInputStream());
-         PrintStream sen = new PrintStream(p.getOutputStream());
-         String msg =receiveOn.readLine();
-           sen.println(msg);
-                }
+                opponent= receiveOn.readLine(); //dh mafrod ygely lma y click 3la asm  mn l online 3ando 
+                    for(XO p :clients_sockets)
+                    {
+                    /* this loop shall iterate over client sockets and find the suitable one get his outputstream 
+                      * and send to him the what ever
+                      */
+                         if (p.getPlayer()==opponent)
+                           { 
+                            DataInputStream rev =new DataInputStream(p.getInputStream());
+                            PrintStream sen = new PrintStream(p.getOutputStream());
+                            String msg =receiveOn.readLine();//dh l mfrod l goz2 l hayt7t feh l update bta3 l gui 
+                            sen.println(msg);
+                            }
                     System.out.println(opponent);
                
                 } } catch (IOException ex) {
