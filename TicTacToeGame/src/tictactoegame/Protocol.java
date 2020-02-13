@@ -7,9 +7,11 @@ package tictactoegame;
 
 /**
  *
- * @author Elkholy
+
+ * @author omar
  */
 public interface Protocol {
+
     String CONNECTED = "CONNECTED";
 
     String MAKE_MOVE = "MAKE_MOVE";
@@ -23,4 +25,5 @@ public interface Protocol {
     String GAME_TIED = "GAME_TIED";
 
     String ERROR = "ERROR";
+
 }

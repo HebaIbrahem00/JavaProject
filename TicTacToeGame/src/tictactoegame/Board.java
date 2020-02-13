@@ -82,4 +82,5 @@ public class Board {
     public String toString() {
         return Arrays.toString(board[0]) + "\n" + Arrays.toString(board[1]) + "\n" + Arrays.toString(board[2]);
     }
+
 }
