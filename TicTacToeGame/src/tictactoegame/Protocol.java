@@ -7,6 +7,7 @@ package tictactoegame;
 
 /**
  *
+
  * @author omar
  */
 public interface Protocol {

@@ -1,0 +1,23 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 12, 2020, 9:46:22 PM
+    Author     : pc
+*/
+.panebg{
+    -fx-background-image: url("https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7280985/910/607/m2/fpnw/wm1/lhaembore2uihqpmqt7fwcxzxxbpi1dlwmvrg3t4qujdhcoeqvig2dqpgcyh61wi-.jpg?1573533908&s=09afb0d38d7023ab7f8b5dd4c524278f");
+    -fx-background-color:#cceeff;
+}
+
+
+
+
+.gridpane{
+  -fx-border-style: none , dashed  , dotted  , none;
+  -fx-strokeline-property:round;
+  -fx-border-color: black;
+  -fx-border-width: 1;
+}
