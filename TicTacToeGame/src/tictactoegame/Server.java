@@ -49,8 +49,8 @@ public class Server extends Thread {
             out.println(Protocol.CONNECTED);
             out2.println(Protocol.CONNECTED);
 
-            // Thread for Client 1
-            Thread t1 = new Thread() {
+            // Thread for Client 1 on a specific port
+            Thread thread1 = new Thread() {
                 public void run() {
                     String line;
                     try {
@@ -85,10 +85,10 @@ public class Server extends Thread {
                 }
 
             };
-            t1.start();
+            thread1.start();
 
-            // Thread for Client 2
-            Thread t2 = new Thread() {
+            // Thread for Client 2 on a specific port
+            Thread thread2 = new Thread() {
                 public void run() {
                     String line;
                     try {
@@ -121,13 +121,14 @@ public class Server extends Thread {
                     }
                 }
             };
-            t2.start();
+            thread2.start();
 
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+    
       protected void onDisconnect(Event event) {
         System.out.println("Client disconnected");
     }

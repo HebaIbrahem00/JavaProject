@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * @author Elkholy
  */
 public class TicTacGUI {
-     private PrintWriter out;
+    private PrintWriter out;
     private BufferedReader in;
     private Board board;
     private String me;
@@ -48,7 +48,7 @@ public class TicTacGUI {
     }
 
     public void run() {
-        System.out.println("RUNNNNN"); //TODO
+        System.out.println("Game On !"); //TODO
         BorderPane w = new BorderPane();
         w.setStyle("-fx-background-color: transparent;");
         Text txt = new Text("Waiting for player two...");
