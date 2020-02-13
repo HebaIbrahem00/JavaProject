@@ -34,7 +34,7 @@ import java.util.Vector;
  */
 public class GameServer extends Application {  
     
-     Vector <CustomizedClientSocket>  clients_sockets= new Vector();
+     Vector <CustomizedClientSocket>  players_sockets= new Vector();
       
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -61,9 +61,7 @@ public class GameServer extends Application {
         root.getChildren().add(btn); 
         Scene scene = new Scene(root, 300, 250);
        Thread curr= Thread.currentThread();
-     //  int noOfThreads= Thread.activeCount(); 
        System.out.println(curr);
-       //   System.out.println(noOfThreads);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -76,7 +74,6 @@ public class GameServer extends Application {
         CustomizedServerSocket server = new CustomizedServerSocket(9000); //creating a socket and binding it to a port with loopback ip 
         CustomizedClientSocket client;
          ClientHandlerThread x;
-       // Vector <CustomizedClientSocket>  clients_sockets= new Vector();
          
          public Background() throws IOException {   
           System.out.println("server is listening");
@@ -84,7 +81,7 @@ public class GameServer extends Application {
                 try {
                     client = (CustomizedClientSocket)server.accept();
                     x = new ClientHandlerThread(client);
-                      clients_sockets.add(client);
+                      players_sockets.add(client);
                    
                 } catch (IOException ex) {
                     Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,42 +92,41 @@ public class GameServer extends Application {
         }
 
         @Override
-        public void run() {
-   
-            super.run();
+        public void run() { super.run();}
                   
-    }}
+    }
     
     public class ClientHandlerThread extends Thread
     
     {   String player ,opponent;
+        DataInputStream receiveOn;
+        PrintStream sendOn;
         
-         DataInputStream receiveOn;
-         PrintStream sendOn;
 
         public ClientHandlerThread(CustomizedClientSocket c) throws IOException {
            receiveOn= new DataInputStream(c.getInputStream());
            sendOn = new PrintStream(c.getOutputStream());
-         start();  
-        }
+           start(); } 
         
-        public void run()
-        {
-        while(true)
-        {   
-             try {
+        
+        public void run(){
+        while(true){
+           try {
                    player= receiveOn.readLine(); //dh mafrod ygely lma y click 3la asm  mn l online 3ando 
-                   clients_sockets.lastElement().statePlayer(player);//sets the playername in his socket 
+                   players_sockets.lastElement().statePlayer(player);//sets the playername in his socket 
                    
                    
-                   System.out.println("NumOfPlayers = "+clients_sockets.size());
-                   System.out.println("player added and is "+clients_sockets.lastElement().getPlayer());
+                   System.out.println("NumOfPlayers = "+players_sockets.size());
+                   System.out.println("player added and is "+players_sockets.lastElement().getPlayer());
                     
                    opponent= receiveOn.readLine();
+                   
+                   
                    System.out.println("opponent is"+opponent);
-                      
-                    for(CustomizedClientSocket p :clients_sockets)
-                    { 
+                   
+                   
+                    for(CustomizedClientSocket p :players_sockets)
+                    { /*checks for opponent*/
                            System.out.println("Entered the loop");
                            System.out.println(p.getPlayer());
                          if (opponent.equals(p.getPlayer()))
@@ -141,12 +137,16 @@ public class GameServer extends Application {
                       String msg =receiveOn.readLine();//dh l mfrod l goz2 l hayt7t feh l X aw O 
                       sen.println(msg);
                        } 
-                         else { 
-                        System.out.println("No such  a player ");
-                        sendOn.println("No such a player, wanna invite them ??");
-                         }
+                        
                
-                } } catch (IOException ex) {
+                } 
+                    
+                    
+             System.out.println("No such  a player ");
+              sendOn.println("No such a player, wanna invite them ??");
+              
+              
+           } catch (IOException ex) {
                 Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
