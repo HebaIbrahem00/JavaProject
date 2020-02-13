@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/LoginPage.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/SignUpPage.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/GameServer.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/ComputerAILogic.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/GameClient.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/TicTacToeGame.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/MainPage.java</file>
-            <file>file:/Users/omar/Desktop/Java/TicTacToeGame/src/tictactoegame/TicTacToePlayerLogic.java</file>
+            <file>file:/E:/ITI/java/day8/JavaProject/TicTacToeGame/src/tictactoegame/TicTacToeGame.java</file>
+            <file>file:/E:/ITI/java/day8/JavaProject/TicTacToeGame/src/tictactoegame/GameClient.java</file>
+            <file>file:/E:/ITI/java/day8/JavaProject/TicTacToeGame/src/tictactoegame/Board.java</file>
         </group>
     </open-files>
 </project-private>

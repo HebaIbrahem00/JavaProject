@@ -5,165 +5,132 @@
  */
 package tictactoegame;
 
-import java.io.BufferedReader;
+ 
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import javax.swing.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 /**
  *
  * @author omar
  */
-public class GameClient {
+public class GameClient extends Application{
 
-    private PrintWriter out;
-    private BufferedReader in;
-    private String me;
-    private Board board;
+      @Override
+    public void start(Stage s) {
 
-    public GameClient(String host, int port, String me) throws IOException {
-        Socket socket = new Socket(host, port);
-        this.out = new PrintWriter(socket.getOutputStream(), true);
-        this.in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
-        this.board = new Board();
-        this.me = me;
-    }
-
-    private void run() throws IOException {
-        if (in.readLine().equals(Protocol.CONNECTED)) {
-            System.out.println("Connection successful\n" + board);
-        } else {
-            System.exit(0);
+        // Set up the button grid representing the tic tac toe board
+        GridPane board = new GridPane();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                Button btn = new Button();
+                btn.setStyle("-fx-border-color: Lightgray; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 80; -fx-font-family: Monospaced;");
+                btn.setMaxSize(100, 100);
+                btn.setPrefSize(100,100);
+                btn.setPadding(new Insets(0));
+                btn.setUserData(new int[] {i, j});
+                board.add(btn, i, j);
+            }
         }
+        final Group root = new Group(board);
+        final Scene scene = new Scene(root, 300, 300, Color.WHITE);
 
-        if (me.equals("X")) {
-            getMove();
-        }
+        // sets up port screen
 
-        String line;
-        while ((line = in.readLine()) != null) {
-            switch (line) {
-                case Protocol.MOVE_MADE:
-                    String move = in.readLine();
-                    String[] l = move.split(" ");
-                    String p;
-                    if (me.equals("X")) {
-                        p = "O";
-                    } else {
-                        p = "X";
+        // start new game
+        BorderPane spo = new BorderPane();
+        spo.setStyle("-fx-background-color: transparent");
+        TextField txtport = new TextField();
+        txtport.setOnAction(e -> {
+            try {
+                System.out.println("start a new game");
+                int port = Integer.parseInt(txtport.getText());
+                Server server = new Server(port);
+                server.start();
+                connect("localhost", port, "X", s, scene);
+            } catch (IOException| NumberFormatException m) {
+                System.out.println("something bad happened");
+            }
+        });
+        Text st = new Text("Start game on what port? ");
+        st.setFont(Font.font("Monospaced", 20));
+        st.setFill(Color.GRAY);
+        txtport.setStyle("-fx-border-width: 1; -fx-border-color: Gray; -fx-background-color: transparent;");
+        VBox form = new VBox(st, txtport);
+        spo.setCenter(form);
+
+        // join a game
+        TextField txtport2 = new TextField();
+        txtport2.setOnAction(e -> {
+                    try {
+                        connect("localhost", Integer.parseInt(txtport2.getText()), "O", s, scene);
+                    } catch (IOException m) {
+                        System.out.println("something bad happened");
                     }
-                    board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), p);
-                    System.out.println("\n" + board);
-                    System.in.read(new byte[System.in.available()]); // Clears System.in
-                    getMove();
-                    break;
-                case Protocol.GAME_WON:
-                    System.out.println("You won!");
-                    System.exit(1);
-                    break;
-                case Protocol.GAME_LOST:
-                    System.out.println("You lost :(");
-                    System.exit(1);
-                    break;
-                case Protocol.GAME_TIED:
-                    System.out.println("It was a tie");
-                    System.exit(1);
-                    break;
-            }
-        }
+                });
+        BorderPane jpo = new BorderPane();
+        jpo.setStyle("-fx-background-color: transparent");
+        Text st2 = new Text("Join game on what port? ");
+        st2.setFont(Font.font("Monospaced", 20));
+        st2.setFill(Color.GRAY);
+        txtport2.setStyle("-fx-border-width: 1; -fx-border-color: Gray; -fx-background-color: transparent;");
+        VBox formj = new VBox(st2, txtport2);
+        jpo.setCenter(formj);
+        final Scene startportscreen = new Scene(spo, 300, 300, Color.WHITE);
+        final Scene joinportscreen  = new Scene(jpo, 300, 300, Color.WHITE);
+
+        // Sets up the game initialization page
+        Button start = new Button("Start a new game");
+        start.setStyle("-fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;");
+        start.setPrefSize(300, 150);
+        Button join = new Button("Join an existing game");
+        join.setStyle("-fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;");
+        join.setPrefSize(300, 150);
+
+        start.setOnMouseEntered(e -> start.setStyle("-fx-cursor: hand; -fx-underline: true; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;"));
+        start.setOnMouseExited(e -> start.setStyle("-fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;"));
+
+        join.setOnMouseEntered(e -> join.setStyle("-fx-cursor: hand; -fx-underline: true; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;"));
+        join.setOnMouseExited(e -> join.setStyle("-fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 21; -fx-font-family: Monospaced;"));
+
+        start.setOnMousePressed(e -> s.setScene(startportscreen));
+        join.setOnMousePressed(e -> s.setScene(joinportscreen));
+
+        VBox options = new VBox(start, join);
+        Group ls = new Group(options);
+        final Scene loginscreen = new Scene(ls, 300, 300, Color.WHITE);
+
+        s.setTitle("Tic Tac Toe");
+        s.getIcons().add(new Image("file:icons/icon1.png"));
+        s.setScene(loginscreen);
+        s.show();
     }
 
-    private void getMove() {
-        Scanner sc = new Scanner(System.in);
-        String line;
-        boolean cont = true;
-        while (cont) {
-            System.out.print("Your turn <row> <col>: ");
-            line = sc.nextLine();
-            String[] l = line.split(" ");
-            if (line.equals("q")) {
-                System.exit(1);
-            }
-            if (l.length != 2) {
-                System.out.println("<row> <col>");
-            } else {
-                try {
-                    if (board.isValidMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]))) {
-                        board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), me);
-                        System.out.println(board);
-                        cont = false;
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(line);
-                    } else {
-                        System.out.println("That move was not valid, please type <row> <col>");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("That move was not valid, please type <row> <col>");
-                    cont = false;
-                }
-            }
-        }
-    }
-
-    private static void connect(String host, int port, String s) throws IOException {
-        System.out.println("Connecting to Tic Tac Toe game on port " + port);
-        GameClient client = new GameClient(host, port, s);
+    private static void connect(String host, int port, String s, Stage stage, Scene sc) throws IOException {
+        TicTacGUI client = new TicTacGUI(host, port, s, stage, sc);
         client.run();
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Tic Tac Toe!\nWould you like to:\n\ta) Start a new game\n\tb) Join a game\n\tc) Exit");
-        boolean begin = false;
-        while (!begin) {
-            begin = true;
-
-            String host = "localhost";
-            int port = 0;
-            String st = "?";
-            switch (sc.nextLine().toLowerCase()) {
-                case "a":
-                    try {
-                        System.out.print("Start a Tic Tac Toe game on what port? ");
-                        port = sc.nextInt();
-
-                        Server s = new Server(port);
-                        st = "X";
-                        s.start();
-                    } catch (InputMismatchException e) {
-                        System.out.println("That is not a valid port number");
-                        begin = false;
-                    }
-                    break;
-                case "b":
-                    try {
-                        System.out.print("Join a Tic Tac Toe game on what port? ");
-                        port = sc.nextInt();
-                        st = "O";
-                    } catch (InputMismatchException e) {
-                        System.out.println("That is not a valid port number");
-                        begin = false;
-                    }
-                    break;
-                case "c":
-                    System.exit(0);
-                    break;
-                default:
-                    begin = false;
-                    System.out.println("Please type a, b, or c");
-                    break;
-            }
-            try {
-                connect(host, port, st);
-            } catch (IOException e) {
-                System.out.println("Cannot connect to that port");
-                begin = false;
-            }
-        }
+    @Override
+    public void stop() {
+        System.exit(0);
     }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
 
 }
