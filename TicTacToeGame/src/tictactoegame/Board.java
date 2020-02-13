@@ -37,41 +37,41 @@ public class Board {
         return board[row][col];
     }
     public String getStatus() {
-        String[] l = new String[9];
+        String[] logicXO = new String[9];
         boolean tie = true;
         int count = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                l[count] = board[i][j];
+                logicXO[count] = board[i][j];
                 count++;
                 if (board[i][j].equals("-")) tie = false;
             }
         }
 
         // diagonal from 0,0
-        if (l[0].equals("X") && l[4].equals("X") && l[8].equals("X")) return "X";
-        if (l[0].equals("O") && l[4].equals("O") && l[8].equals("O")) return "O";
+        if (logicXO[0].equals("X") && logicXO[4].equals("X") && logicXO[8].equals("X")) return "X";
+        if (logicXO[0].equals("O") && logicXO[4].equals("O") && logicXO[8].equals("O")) return "O";
         // diagonal from 0, 2
-        if (l[2].equals("X") && l[4].equals("X") && l[6].equals("X")) return "X";
-        if (l[2].equals("O") && l[4].equals("O") && l[6].equals("O")) return "O";
+        if (logicXO[2].equals("X") && logicXO[4].equals("X") && logicXO[6].equals("X")) return "X";
+        if (logicXO[2].equals("O") && logicXO[4].equals("O") && logicXO[6].equals("O")) return "O";
         // first row
-        if (l[0].equals("X") && l[1].equals("X") && l[2].equals("X")) return "X";
-        if (l[0].equals("O") && l[1].equals("O") && l[2].equals("O")) return "O";
+        if (logicXO[0].equals("X") && logicXO[1].equals("X") && logicXO[2].equals("X")) return "X";
+        if (logicXO[0].equals("O") && logicXO[1].equals("O") && logicXO[2].equals("O")) return "O";
         // second row
-        if (l[3].equals("X") && l[4].equals("X") && l[5].equals("X")) return "X";
-        if (l[3].equals("O") && l[4].equals("O") && l[5].equals("O")) return "O";
+        if (logicXO[3].equals("X") && logicXO[4].equals("X") && logicXO[5].equals("X")) return "X";
+        if (logicXO[3].equals("O") && logicXO[4].equals("O") && logicXO[5].equals("O")) return "O";
         // third row
-        if (l[6].equals("X") && l[7].equals("X") && l[8].equals("X")) return "X";
-        if (l[6].equals("O") && l[7].equals("O") && l[8].equals("O")) return "O";
+        if (logicXO[6].equals("X") && logicXO[7].equals("X") && logicXO[8].equals("X")) return "X";
+        if (logicXO[6].equals("O") && logicXO[7].equals("O") && logicXO[8].equals("O")) return "O";
         // first column
-        if (l[0].equals("X") && l[3].equals("X") && l[6].equals("X")) return "X";
-        if (l[0].equals("O") && l[3].equals("O") && l[6].equals("O")) return "O";
+        if (logicXO[0].equals("X") && logicXO[3].equals("X") && logicXO[6].equals("X")) return "X";
+        if (logicXO[0].equals("O") && logicXO[3].equals("O") && logicXO[6].equals("O")) return "O";
         // second column
-        if (l[1].equals("X") && l[4].equals("X") && l[7].equals("X")) return "X";
-        if (l[1].equals("O") && l[4].equals("O") && l[7].equals("O")) return "O";
+        if (logicXO[1].equals("X") && logicXO[4].equals("X") && logicXO[7].equals("X")) return "X";
+        if (logicXO[1].equals("O") && logicXO[4].equals("O") && logicXO[7].equals("O")) return "O";
         // third column
-        if (l[2].equals("X") && l[5].equals("X") && l[8].equals("X")) return "X";
-        if (l[2].equals("O") && l[5].equals("O") && l[8].equals("O")) return "O";
+        if (logicXO[2].equals("X") && logicXO[5].equals("X") && logicXO[8].equals("X")) return "X";
+        if (logicXO[2].equals("O") && logicXO[5].equals("O") && logicXO[8].equals("O")) return "O";
 
         if (tie) return "tie";
         return "NONE";
