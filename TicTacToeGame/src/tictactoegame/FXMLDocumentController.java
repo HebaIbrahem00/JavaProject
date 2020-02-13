@@ -60,8 +60,9 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    void test1(MouseEvent event) {
-          text1.setText(x);
+    void test1(MouseEvent event,String s) {
+          text1.setText(s);
+          
     }
 
     @FXML
