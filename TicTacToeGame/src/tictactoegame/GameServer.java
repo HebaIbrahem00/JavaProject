@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gamev2;
+package tictactoegame;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -26,6 +26,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.util.Vector;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 
 
 /**
@@ -42,26 +44,37 @@ public class GameServer extends Application {
         btn.setText("Turn Server OFF");
         final Background serverInfo =new Background();
         serverInfo.start();
+        Button onbtn = new Button();
+        onbtn.setText("Turn Server On");
         
         
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try {
-                    serverInfo.server.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    System.out.println("Server Closed successfully");
-             
+                serverInfo.stop();
+                //serverInfo.server.close();
+                System.out.println("Server Closed successfully");
             }
         });
         
+        
+        onbtn.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                // Here we need to Turn the Server Back on 
+                  serverInfo.resume();
+//                serverInfo.start();
+            }
+        });
+        
+        HBox box1 = new HBox();
+        box1.getChildren().addAll(btn,onbtn);
+        box1.setAlignment(Pos.CENTER);
         StackPane root = new StackPane();
-        root.getChildren().add(btn); 
+        root.getChildren().add(box1); 
         Scene scene = new Scene(root, 300, 250);
-       Thread curr= Thread.currentThread();
-       System.out.println(curr);
+        Thread curr= Thread.currentThread();
+        System.out.println(curr);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();

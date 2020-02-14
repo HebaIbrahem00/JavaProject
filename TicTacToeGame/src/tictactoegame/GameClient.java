@@ -119,6 +119,7 @@ public class GameClient extends Application{
     }
 
     private static void connect(String host, int port, String s, Stage stage, Scene sc) throws IOException {
+        
         TicTacGUI client = new TicTacGUI(host, port, s, stage, sc);
         client.run();
     }
