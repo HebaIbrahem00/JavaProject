@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.util.Vector;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 
 
 /**
@@ -31,6 +33,9 @@ public class GameServer extends Application {
     public void start(Stage primaryStage) throws IOException {
         Button btn = new Button();
         btn.setText("Turn Server OFF");
+        Button onbtn = new Button();
+        onbtn.setText("Turn Server On");
+
         final Background serverInfo =new Background();
         serverInfo.start();
         
@@ -38,18 +43,27 @@ public class GameServer extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try {
-                    serverInfo.server.close();
-                    System.out.println("Server Closed successfully");
-                } catch (IOException ex) {
-                    System.out.println("Coudnt close??");
-                    Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                serverInfo.stop();
+                //serverInfo.server.close();
+                System.out.println("Server Closed successfully");
             }
         });
         
+        
+        onbtn.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                // Here we need to Turn the Server Back on 
+                  serverInfo.resume();
+//                serverInfo.start();
+            }
+        });
+        
+        HBox box1 = new HBox();
+        box1.getChildren().addAll(btn,onbtn);
+        box1.setAlignment(Pos.CENTER);
         StackPane root = new StackPane();
-        root.getChildren().add(btn); 
+        root.getChildren().add(box1); 
         Scene scene = new Scene(root, 300, 250);
        Thread curr= Thread.currentThread();
      //  int noOfThreads= Thread.activeCount(); 

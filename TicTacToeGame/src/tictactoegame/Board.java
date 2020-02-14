@@ -12,7 +12,7 @@ package tictactoegame;
  */
 import java.util.Arrays;
 
-public class Board {
+public class Board{
 
     private String[][] board = new String[3][3];
     private String status = "Tie";
