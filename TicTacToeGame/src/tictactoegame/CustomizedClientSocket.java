@@ -23,8 +23,8 @@ public class CustomizedClientSocket extends Socket {
      PrintStream toServer;
      
      public CustomizedClientSocket(String address, int port,String x) throws UnknownHostException, IOException {
-        super(address,port);
-        Player=x;   
+       super(address,port);
+       Player=x;   
        this.toServer=  new PrintStream(this.getOutputStream());
        this.fromServer= new DataInputStream(this.getInputStream());
        this.toServer.println(this.getPlayer());
@@ -53,7 +53,8 @@ public class CustomizedClientSocket extends Socket {
 
    s.toServer.println("Ahmed");
    s.toServer.println("working ya Ahmed ?");
- while(true)
+
+   while(true)
 {
 String working =s.fromServer.readLine();
 System.out.println(working);

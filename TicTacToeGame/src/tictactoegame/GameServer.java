@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-package tictactoegame;
+package gamev2;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 
 
@@ -84,8 +86,7 @@ public class GameServer extends Application {
                 } catch (IOException ex) {
                     Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                     System.out.println("a client connected");       
-           
+                     System.out.println("a client connected");          
           }
         }
 
@@ -135,8 +136,6 @@ public class GameServer extends Application {
                       String msg =receiveOn.readLine();//dh l mfrod l goz2 l hayt7t feh l X aw O 
                       sen.println(msg);
                        } 
-                        
-               
                 } 
                     
                     
