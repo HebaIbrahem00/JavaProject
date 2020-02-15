@@ -11,13 +11,11 @@ package Client;
  * @author omar
  */
 import java.util.Arrays;
-import tictactoegame.FXMLDocumentController;
 
 public class Board{
 
     private String[][] board = new String[3][3];
     private String status = "Tie";
-    FXMLDocumentController fxml=new FXMLDocumentController();
     Board() {
         for (int i = 0; i < this.board.length; i++) {
             for (int j = 0; j < this.board.length; j++) {

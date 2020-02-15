@@ -9,7 +9,6 @@ and open the template in the editor.
 */
 #pane{
     -fx-background-image: url("1433187741766.jpeg");  
-    //-fx-background-repeat: stretch;   
 
     -fx-background-size: 1400,800;
 }
