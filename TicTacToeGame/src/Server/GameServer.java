@@ -1,14 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+package tictactoegame;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -26,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.util.Vector;
+import static javafx.application.Application.launch;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
@@ -42,23 +38,21 @@ public class GameServer extends Application {
     public void start(Stage primaryStage) throws IOException {
         Button btn = new Button();
         btn.setText("Turn Server OFF");
-        final Background serverInfo =new Background();
-        serverInfo.start();
-        Button onbtn = new Button();
+         Button onbtn = new Button();
         onbtn.setText("Turn Server On");
-        
-        
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+       final Background serverInfo =new Background();
+       serverInfo.start();
+       
+       btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 serverInfo.stop();
-                //serverInfo.server.close();
-                System.out.println("Server Closed successfully");
+                    System.out.println("Server Closed successfully");
+             
             }
         });
-        
-        
-        onbtn.setOnAction(new EventHandler<ActionEvent>(){
+       
+       onbtn.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
                 // Here we need to Turn the Server Back on 
@@ -66,18 +60,21 @@ public class GameServer extends Application {
 //                serverInfo.start();
             }
         });
-        
-        HBox box1 = new HBox();
+          HBox box1 = new HBox();
         box1.getChildren().addAll(btn,onbtn);
         box1.setAlignment(Pos.CENTER);
+      
         StackPane root = new StackPane();
-        root.getChildren().add(box1); 
+        root.getChildren().addAll(btn,box1); 
         Scene scene = new Scene(root, 300, 250);
-        Thread curr= Thread.currentThread();
-        System.out.println(curr);
+       Thread curr= Thread.currentThread();
+       System.out.println(curr);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
+         
+        
+     
     }
 
    
@@ -86,27 +83,33 @@ public class GameServer extends Application {
         
         CustomizedServerSocket server = new CustomizedServerSocket(9000); //creating a socket and binding it to a port with loopback ip 
         CustomizedClientSocket client;
-         ClientHandlerThread x;
          
-         public Background() throws IOException {   
+         public Background() throws IOException { }  
+               @Override
+        public void run() { super.run();
           System.out.println("server is listening");
              while(true){
                 try {
-                    client = (CustomizedClientSocket)server.accept();
-                    x = new ClientHandlerThread(client);
+                    client = (CustomizedClientSocket)server.accept(); 
+                    System.out.println("a client connected"); 
+                      try {
+                    ClientHandlerThread x = new ClientHandlerThread(client);
+                    x.start();
+                } catch (IOException ex) {
+                    Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
                       players_sockets.add(client);
                    
                 } catch (IOException ex) {
                     Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                     System.out.println("a client connected");          
+                            
           }
-        }
+        }}
 
-        @Override
-        public void run() { super.run();}
+       
                   
-    }
+    
     
     public class ClientHandlerThread extends Thread
     
@@ -118,10 +121,10 @@ public class GameServer extends Application {
         public ClientHandlerThread(CustomizedClientSocket c) throws IOException {
            receiveOn= new DataInputStream(c.getInputStream());
            sendOn = new PrintStream(c.getOutputStream());
-           start(); } 
-        
-        
+        }        
+       
         public void run(){
+            int found=0;
         while(true){
            try {
                    player= receiveOn.readLine(); //dh mafrod ygely lma y click 3la asm  mn l online 3ando 
@@ -131,9 +134,7 @@ public class GameServer extends Application {
                    System.out.println("NumOfPlayers = "+players_sockets.size());
                    System.out.println("player added and is "+players_sockets.lastElement().getPlayer());
                     
-                   opponent= receiveOn.readLine();
-                   
-                   
+                   opponent= receiveOn.readLine(); 
                    System.out.println("opponent is"+opponent);
                    
                    
@@ -142,18 +143,21 @@ public class GameServer extends Application {
                            System.out.println("Entered the loop");
                            System.out.println(p.getPlayer());
                          if (opponent.equals(p.getPlayer()))
-                           {
+                           {  found+=1;
                       System.out.println("Found Ahmed");
                       DataInputStream rev =new DataInputStream(p.getInputStream());
                       PrintStream sen = new PrintStream(p.getOutputStream());
                       String msg =receiveOn.readLine();//dh l mfrod l goz2 l hayt7t feh l X aw O 
                       sen.println(msg);
                        } 
+                         if(found==0){
+                       System.out.println("No such  a player ");
+                       sendOn.println("No such a player, wanna invite them ??");   
+                         }
                 } 
                     
                     
-             System.out.println("No such  a player ");
-              sendOn.println("No such a player, wanna invite them ??");
+            
               
               
            } catch (IOException ex) {
@@ -163,7 +167,8 @@ public class GameServer extends Application {
         }
     }
     public static void main(String[] args) {
-       Application.launch(args);
+        
+       launch(args);
    
     }
 }
