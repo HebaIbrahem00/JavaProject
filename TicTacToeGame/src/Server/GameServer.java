@@ -65,7 +65,7 @@ public class GameServer extends Application {
         box1.setAlignment(Pos.CENTER);
       
         StackPane root = new StackPane();
-        root.getChildren().addAll(btn,box1); 
+        root.getChildren().addAll(box1); 
         Scene scene = new Scene(root, 300, 250);
        Thread curr= Thread.currentThread();
        System.out.println(curr);
