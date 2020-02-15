@@ -8,8 +8,9 @@ and open the template in the editor.
     Author     : pc
 */
 #pane{
-    -fx-background-image: url("1433187741766.jpeg");
+    -fx-background-image: url("1433187741766.jpeg");  
     //-fx-background-repeat: stretch;   
+
     -fx-background-size: 1400,800;
 }
 #grid{

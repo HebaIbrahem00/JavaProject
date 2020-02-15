@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoegame;
+package Server;
 
 
 import java.io.DataInputStream;
@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.util.Vector;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import tictactoegame.XO;
 
 
 /**

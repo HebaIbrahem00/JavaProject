@@ -4,13 +4,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoegame;
+package Client;
 
 /**
  *
  * @author omar
  */
 import java.util.Arrays;
+import tictactoegame.FXMLDocumentController;
 
 public class Board{
 
