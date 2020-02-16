@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javaapplication32;
 
 import java.util.ArrayList;
@@ -26,82 +21,67 @@ public class TicTacToeAI {
     {'-', '+', ' ', '+', '-'},
     {' ', '|', ' ', '|', ' '}};
 
-//    public void main(String[] args) {
-//
-//        printGameBoard(gameBoard);
-//        while (true) {
-//            Scanner scan = new Scanner(System.in);
-//            System.out.println("enter your placement(1-9):");
-//            int playerpos = scan.nextInt();
-//            while (PlayerPositions.contains(playerpos) || CpuPositions.contains(playerpos)) {
-//                System.out.println("Position taken! Enter a correct position");
-//                playerpos = scan.nextInt();
-//            }
-//            placePiece(gameBoard, playerpos, "player");
-//            Random rand = new Random();
-//            int CpuPos = rand.nextInt(9) + 1;
-//            while (PlayerPositions.contains(CpuPos) || CpuPositions.contains(CpuPos)) {
-//                System.out.println("Position taken! Enter a correct position");
-//                CpuPos = rand.nextInt(9) + 1;;
-//            }
-//
-//            placePiece(gameBoard, CpuPos, "cpu");
-//            printGameBoard(gameBoard);
-//            String result = checkWinner();
-//            System.out.println(result);
-//            //while(PlayerPositions.contains(PlayerPos)||CpuPositions.contains(playerPos))
-//        }
-//    }
-
+    //funcction to check whether the position entered by the user is free or not
     public boolean checkPlayerPos(int position) {
         boolean status = true;
         int playerpos = position;
-        while (PlayerPositions.contains(playerpos) || CpuPositions.contains(playerpos)) {
+        if (PlayerPositions.contains(playerpos) || CpuPositions.contains(playerpos)) {
             System.out.println("Position taken! Enter a correct position");
             status = false;
-            continue;
         }
-        placePiece(gameBoard, playerpos, "player");
-        printGameBoard(gameBoard);
+        if (status) {
+            placePiece(gameBoard, playerpos, "player");
+            printGameBoard(gameBoard);
+        }
         return status;
     }
-
+    
+    //function to generate a random position for the cpu while checking this position is free or not
     public int CpuTurn() {
         Random rand = new Random();
         int CpuPos = rand.nextInt(9) + 1;
         while (PlayerPositions.contains(CpuPos) || CpuPositions.contains(CpuPos)) {
-            System.out.println("Position taken! Enter a correct position");
             CpuPos = rand.nextInt(9) + 1;
         }
         placePiece(gameBoard, CpuPos, "cpu");
         printGameBoard(gameBoard);
         return CpuPos;
     }
+    
+    //function to check if anybody won or a tie took place
+    public String checkWinner() {
+        List topRow = Arrays.asList(1, 2, 3);
+        List midRow = Arrays.asList(4, 5, 6);
+        List botRow = Arrays.asList(7, 8, 9);
+        List leftCol = Arrays.asList(1, 4, 7);
+        List midCol = Arrays.asList(2, 5, 8);
+        List rightCol = Arrays.asList(3, 6, 9);
+        List cross1 = Arrays.asList(1, 5, 9);
+        List cross2 = Arrays.asList(7, 5, 3);
 
-//    public int checkBoard(int n) {
-//        int resultpos = 0;
-//        int playerpos = n;
-//        while (PlayerPositions.contains(playerpos) || CpuPositions.contains(playerpos)) {
-//            System.out.println("Position taken! Enter a correct position");
-//            resultpos = -1;
-//            continue;
-//        }
-//        placePiece(gameBoard, playerpos, "player");
-//        Random rand = new Random();
-//        int CpuPos = rand.nextInt(9) + 1;
-//        while (PlayerPositions.contains(CpuPos) || CpuPositions.contains(CpuPos)) {
-//            System.out.println("Position taken! Enter a correct position");
-//            CpuPos = rand.nextInt(9) + 1;
-//
-//        }
-//        resultpos = CpuPos;
-//        placePiece(gameBoard, CpuPos, "cpu");
-//        printGameBoard(gameBoard);
-//        String result = checkWinner();
-//        System.out.println(result);
-//        return resultpos;
-//    }
+        List<List> winning = new ArrayList<List>();
+        winning.add(topRow);
+        winning.add(midRow);
+        winning.add(botRow);
+        winning.add(leftCol);
+        winning.add(midCol);
+        winning.add(rightCol);
+        winning.add(cross1);
+        winning.add(cross2);
 
+        for (List l : winning) {
+            if (PlayerPositions.containsAll(l)) {
+                return "Congrats you won!";
+            } else if (CpuPositions.containsAll(l)) {
+                return "you lost, CPU Won!";
+            } else if (PlayerPositions.size() + CpuPositions.size() == 9) {
+                return "No one won it's a tie";
+            }
+        }
+        return "";
+    }
+    
+    //the rest of the functions are not important to understand I use them to help me keep track of what is happening
     public void printGameBoard(char[][] gameBoard) {
         for (char[] row : gameBoard) {
             for (char c : row) {
@@ -152,35 +132,5 @@ public class TicTacToeAI {
         }
     }
 
-    public String checkWinner() {
-        List topRow = Arrays.asList(1, 2, 3);
-        List midRow = Arrays.asList(4, 5, 6);
-        List botRow = Arrays.asList(7, 8, 9);
-        List leftCol = Arrays.asList(1, 4, 7);
-        List midCol = Arrays.asList(2, 5, 8);
-        List rightCol = Arrays.asList(3, 6, 9);
-        List cross1 = Arrays.asList(1, 5, 9);
-        List cross2 = Arrays.asList(7, 5, 3);
-
-        List<List> winning = new ArrayList<List>();
-        winning.add(topRow);
-        winning.add(midRow);
-        winning.add(botRow);
-        winning.add(leftCol);
-        winning.add(midCol);
-        winning.add(rightCol);
-        winning.add(cross1);
-        winning.add(cross2);
-
-        for (List l : winning) {
-            if (PlayerPositions.containsAll(l)) {
-                return "Congrats you won!";
-            } else if (CpuPositions.containsAll(l)) {
-                return "you lost, CPU Won!";
-            } else if (PlayerPositions.size() + CpuPositions.size() == 9) {
-                return "No one won it's a tie";
-            }
-        }
-        return "";
-    }
+    
 }

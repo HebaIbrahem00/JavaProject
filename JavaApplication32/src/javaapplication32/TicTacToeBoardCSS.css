@@ -10,7 +10,7 @@ and open the template in the editor.
 
 #background{
     -fx-background-image: url("1433187741766.jpeg");  
-    -fx-background-size: 1400,800;
+    -fx-background-size: cover;
 }
 #pane{
     -fx-border-radius: 1000px;
