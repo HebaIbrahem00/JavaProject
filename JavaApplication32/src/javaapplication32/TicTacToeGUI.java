@@ -1,5 +1,6 @@
 package javaapplication32;
 
+import javafx.scene.control.Label;
 import static java.awt.SystemColor.text;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -55,9 +56,18 @@ public class TicTacToeGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         StackPane bg = new StackPane();
-        bg.setPadding(new Insets(10, 10, 10, 10));
+        Label lbl = new Label("TIC TAC TOE");
+        lbl.setTextFill(Color.web("rgba(255, 255, 255, 1)"));
+        lbl.setFont(Font.font("Verdana",72));
+        lbl.setId("label");
+        lbl.setTranslateY(-300);
+        lbl.setTranslateX(-30);
+        bg.getChildren().add(lbl);
+        bg.setPadding(new Insets(110, 10, 10, 72));
         root.setId("pane");
+        bg.setAlignment(root, Pos.CENTER);
         bg.setId("background");
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("TicTacToe");
         bg.getChildren().addAll(createParent());
         Scene scene = new Scene(bg, 600, 600);
@@ -73,10 +83,11 @@ public class TicTacToeGUI extends Application {
 
         public Tile() {
             tilenumber++;
-            Rectangle rect = new Rectangle(150, 150, Color.web("rgba(255,0,0,0.2)"));
-            rect.setStroke(Color.BLACK);
+            Rectangle rect = new Rectangle(150, 150, Color.web("rgba(125, 118, 198, 0.44)"));
+            rect.setStroke(Color.web("rgba(125, 118, 198, 1)"));
             rect.setStrokeWidth(7);
-            text.setFont(Font.font(72));
+            text.setFill(Color.WHITE);
+            text.setFont(Font.font("Verdana", 72));
             setAlignment(Pos.CENTER);
             //whenever any tile is chosen by the player
             setOnMouseClicked(event -> {

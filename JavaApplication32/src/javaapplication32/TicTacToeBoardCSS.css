@@ -9,9 +9,12 @@ and open the template in the editor.
 */
 
 #background{
-    -fx-background-image: url("1433187741766.jpeg");  
+    -fx-background-color: radial-gradient(center 50% 50% , radius 40% , #ffebcd, #008080); 
     -fx-background-size: cover;
 }
 #pane{
     -fx-border-radius: 1000px;
+}
+#label{
+    
 }
