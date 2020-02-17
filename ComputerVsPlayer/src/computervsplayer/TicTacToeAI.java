@@ -1,4 +1,4 @@
-package javaapplication32;
+package computervsplayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
