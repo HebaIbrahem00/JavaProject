@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package Server;
 
+import Client.Board;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.*;
@@ -33,6 +34,8 @@ import javafx.scene.layout.HBox;
 public class GameServer extends Application {  
     
      Vector <CustomizedClientSocket>  players_sockets= new Vector();
+     
+     private Board board;
       
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -47,8 +50,7 @@ public class GameServer extends Application {
             @Override
             public void handle(ActionEvent event) {
                 serverInfo.stop();
-                    System.out.println("Server Closed successfully");
-             
+                System.out.println("Server Closed successfully");
             }
         });
        
@@ -57,7 +59,6 @@ public class GameServer extends Application {
             public void handle(ActionEvent event) {
                 // Here we need to Turn the Server Back on 
                   serverInfo.resume();
-//                serverInfo.start();
             }
         });
           HBox box1 = new HBox();
@@ -86,11 +87,13 @@ public class GameServer extends Application {
          
          public Background() throws IOException { }  
                @Override
-        public void run() { super.run();
+        public void run() { 
+            super.run();
           System.out.println("server is listening");
              while(true){
                 try {
                     client = (CustomizedClientSocket)server.accept(); 
+                    
                     System.out.println("a client connected"); 
                       try {
                     ClientHandlerThread x = new ClientHandlerThread(client);
@@ -98,7 +101,7 @@ public class GameServer extends Application {
                 } catch (IOException ex) {
                     Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                      players_sockets.add(client);
+                      players_sockets.add(client);//////atal3ha fo2???
                    
                 } catch (IOException ex) {
                     Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,20 +124,49 @@ public class GameServer extends Application {
         public ClientHandlerThread(CustomizedClientSocket c) throws IOException {
            receiveOn= new DataInputStream(c.getInputStream());
            sendOn = new PrintStream(c.getOutputStream());
-        }        
+        }   
        
+        
+        public void sendClientList()
+        { 
+            
+         for(CustomizedClientSocket p :players_sockets)
+                    { 
+           //excluding his name
+                    sendOn.println(p.getPlayer());
+                    }
+        }
+        
+        
+       public void updateBoard(CustomizedClientSocket player,CustomizedClientSocket opponent)
+       {}
+        public void validateOpponent(CustomizedClientSocket client)
+       {}
+        
+         public void updateScene(CustomizedClientSocket client)
+       {}
+         
+         
         public void run(){
+            
             int found=0;
+            
         while(true){
            try {
+               
                    player= receiveOn.readLine(); //dh mafrod ygely lma y click 3la asm  mn l online 3ando 
                    players_sockets.lastElement().statePlayer(player);//sets the playername in his socket 
                    
+                   //updateScene to scene 2 of choosing players or invitation
                    
                    System.out.println("NumOfPlayers = "+players_sockets.size());
                    System.out.println("player added and is "+players_sockets.lastElement().getPlayer());
+                   
+                    if(receiveOn.readLine().startsWith("opponent"))
                     
-                   opponent= receiveOn.readLine(); 
+                    {opponent= receiveOn.readLine().substring(9);
+                    }
+                    
                    System.out.println("opponent is"+opponent);
                    
                    

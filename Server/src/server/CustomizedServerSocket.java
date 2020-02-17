@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package Server;
 
 import java.net.SocketImpl ;
 
@@ -22,6 +22,7 @@ public class CustomizedServerSocket extends ServerSocket{
     }
     public Socket accept() throws IOException {
         Socket s;
+        
         s = new CustomizedClientSocket((SocketImpl) null);
         implAccept(s);
         
