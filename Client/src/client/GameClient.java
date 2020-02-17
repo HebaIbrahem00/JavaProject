@@ -6,8 +6,6 @@
 package client;
 
  
-import client.Server;
-import client.TicTacGUI;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -47,21 +45,25 @@ public class GameClient extends Application{
             }
         }
         final Group root = new Group(board);
-        final Scene scene = new Scene(root, 300, 300, Color.WHITE);
+        final Scene XOscene = new Scene(root, 300, 300, Color.WHITE);
 
         // sets up port screen
 
         // start new game
         BorderPane spo = new BorderPane();
         spo.setStyle("-fx-background-color: transparent");
+       
+        
         TextField txtport = new TextField();
         txtport.setOnAction(e -> {
             try {
                 System.out.println("start a new game");
-                int port = Integer.parseInt(txtport.getText());
-                Server server = new Server(port);
-                server.start();
-                connect("localhost", port, "X", s, scene);
+                //int port = Integer.parseInt(txtport.getText());
+                 String username = txtport.getText();
+               // Server server = new Server(port);
+                //server.start();
+               // connect("localhost", port, "X", s, scene);
+                 connect("127.0.0.1", 9000, "X", s, XOscene,username);
             } catch (IOException| NumberFormatException m) {
                 System.out.println("something bad happened");
             }
@@ -74,22 +76,22 @@ public class GameClient extends Application{
         spo.setCenter(form);
 
         // join a game
-        TextField txtport2 = new TextField();
+      /*  TextField txtport2 = new TextField();
         txtport2.setOnAction(e -> {
                     try {
                         connect("localhost", Integer.parseInt(txtport2.getText()), "O", s, scene);
                     } catch (IOException m) {
                         System.out.println("something bad happened");
                     }
-                });
+                });*/
         BorderPane jpo = new BorderPane();
         jpo.setStyle("-fx-background-color: transparent");
         Text st2 = new Text("Join game on what port? ");
         st2.setFont(Font.font("Monospaced", 20));
         st2.setFill(Color.GRAY);
-        txtport2.setStyle("-fx-border-width: 1; -fx-border-color: Gray; -fx-background-color: transparent;");
-        VBox formj = new VBox(st2, txtport2);
-        jpo.setCenter(formj);
+      //  txtport2.setStyle("-fx-border-width: 1; -fx-border-color: Gray; -fx-background-color: transparent;");
+      //  VBox formj = new VBox(st2, txtport2);
+      //  jpo.setCenter(formj);
         final Scene startportscreen = new Scene(spo, 300, 300, Color.WHITE);
         final Scene joinportscreen  = new Scene(jpo, 300, 300, Color.WHITE);
 
@@ -120,8 +122,8 @@ public class GameClient extends Application{
         s.show();
     }
 
-    private static void connect(String host, int port, String s, Stage stage, Scene sc) throws IOException {
-        TicTacGUI client = new TicTacGUI(host, port, s, stage, sc);
+    private static void connect(String host, int port, String s, Stage stage, Scene sc,String username) throws IOException {
+        TicTacGUI client = new TicTacGUI(host, port, s, stage, sc,username);
         client.run();
     }
 

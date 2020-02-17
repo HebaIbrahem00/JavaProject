@@ -5,11 +5,11 @@
  */
 package client;
 
-import client.Protocol;
-import client.Board;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import javafx.application.Platform;
@@ -29,22 +29,25 @@ import javafx.stage.Stage;
  * @author Elkholy
  */
 public class TicTacGUI {
-    private PrintWriter out;
-    private BufferedReader in;
+   // private PrintWriter out;
+     private PrintStream out;
+  //  private BufferedReader in;
+    private DataInputStream in;
     private Board board;
     private String me;
     private Stage stage;
     private Scene sc;
     private Button[] buttons = new Button[9];
-    private Socket socket;
+    private CustomizedClientSocket socket;
 
-    public TicTacGUI(String host, int port, String me, Stage stage, Scene sc) throws IOException {
-        this.socket = new Socket(host,port);
-        this.out = new PrintWriter(socket.getOutputStream(), true);
-        this.in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+    public TicTacGUI(String host, int port, String me, Stage stage, Scene sc,String userName) throws IOException {
+        this.socket = new CustomizedClientSocket(host,port,userName);
+       // this.out = new PrintWriter(socket.getOutputStream(), true);
+        //this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.out=socket.toServer;
+        this.in=socket.fromServer;
         this.board = new Board();
-        this.me = me;
+        this.me = me; //X or O
         this.stage = stage;
         this.sc = sc;
     }
@@ -70,7 +73,8 @@ public class TicTacGUI {
             public void run() {
                 try {
                     if (in.readLine().equals(Protocol.CONNECTED))
-                        Platform.runLater(()->stage.setScene(s));
+        /////////////////////////////////
+                        Platform.runLater(()->stage.setScene(s));///scene s dh scene l le3ba 
                     else System.exit(0);
 
                 } catch (IOException e) {
@@ -98,6 +102,8 @@ public class TicTacGUI {
                     board.makeMove(data[1], data[0], me);
                     out.println(Protocol.MAKE_MOVE);
                     out.println(data[1] + " " + data[0]);
+                    
+                    
                     b.setText(me);
                     root.setBottom(new Text("Waiting for opponent. . ."));
                     root.setDisable(true);
@@ -112,10 +118,12 @@ public class TicTacGUI {
                 try {
                     String line;
                     while ((line = in.readLine()) != null) {
+                        
                         switch (line) {
                             case Protocol.MOVE_MADE:
                                 System.out.println("MOVE MADE"); //TODO
                                 String move = in.readLine();
+                              
                                 System.out.println("MOVE " + move); // TODO
                                 String[] l = move.split(" ");
                                 String p;
