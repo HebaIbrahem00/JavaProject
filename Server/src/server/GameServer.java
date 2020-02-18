@@ -109,7 +109,7 @@ public class GameServer extends Application {
         public void run() {
             while (true) {
                 try {
-                    //server is listening to a request from the server
+                    //server is listening to a request from the client
                     String request = fromPlayer.readLine();
 
                     switch (request) {

@@ -3,7 +3,6 @@ package client.view;
 import client.Connection.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -71,11 +70,11 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener {
         String choice = e.getActionCommand();
         Object source = e.getSource();
         if (choice.equals("Sign In")) {
-            
+            client.toServer.println(Protocol.SIGNIN);
             String userName = userNameField.getText();
             String password = passwordField.getText();
             String userStatus;
-            client.toServer(Protocol.SIGNIN);
+            
             try {
                authenticationStatusLabel.setText(client.sendLoginData(userName, password));
                

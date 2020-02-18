@@ -13,12 +13,12 @@ class MainApp {
         //run the first screen (login screen) in the game
 //        
 //        
-//        try {
-//            ClientSocket client = new ClientSocket("localhost", 9000);
-//            LoginScreen loginScreen = new LoginScreen(client);
-//            
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            ClientSocket client = new ClientSocket("localhost", 9000);
+            LoginScreen loginScreen = new LoginScreen(client);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
