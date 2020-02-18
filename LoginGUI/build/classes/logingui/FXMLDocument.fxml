@@ -13,12 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="547.0" prefWidth="694.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logingui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="730.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logingui.FXMLDocumentController">
     <stylesheets>
         <URL value="@../../../ComputerVsPlayer/src/computervsplayer/signingui.css" />
     </stylesheets>
    <children>
-      <AnchorPane layoutX="-26.0" prefHeight="547.0" prefWidth="730.0" style="-fx-background-color: rgba(3, 66, 155, 0.99);">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="730.0" style="-fx-background-color: rgba(3, 66, 155, 0.99);">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="498.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" rotate="30.0">
                <image>
@@ -54,7 +54,7 @@
                   <Text fx:id="passwordValidation" fill="#bb0404" layoutX="28.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="192.2569031708008" />
                </children>
             </AnchorPane>
-            <Label layoutX="224.0" layoutY="15.0" prefHeight="75.0" prefWidth="316.0" text="TIC TAC TOE" textFill="#e1af0a">
+            <Label layoutX="199.0" layoutY="15.0" prefHeight="75.0" prefWidth="368.0" style="-fx-alignment: center;" text="HELLO AGAIN!" textFill="#e1af0a">
                <font>
                   <Font name="Tempus Sans ITC" size="52.0" />
                </font>
