@@ -18,8 +18,8 @@ public class ClientSocket extends Socket {
     String userName;
     String pass;
         
-    DataInputStream fromServer;
-    PrintStream toServer;
+    public DataInputStream fromServer;
+    public PrintStream toServer;
     
     HashMap<Integer, String>MessageToServer;
 
@@ -64,6 +64,10 @@ public class ClientSocket extends Socket {
 
     public void setUserPass(String _pass) {
         this.pass = _pass;
+    }
+
+    public void toServer(String SIGNIN) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -1,6 +1,6 @@
 package client.view;
 
-import client.Connection.ClientSocket;
+import client.Connection.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -71,11 +71,11 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener {
         String choice = e.getActionCommand();
         Object source = e.getSource();
         if (choice.equals("Sign In")) {
-
+            
             String userName = userNameField.getText();
             String password = passwordField.getText();
             String userStatus;
-            
+            client.toServer(Protocol.SIGNIN);
             try {
                authenticationStatusLabel.setText(client.sendLoginData(userName, password));
                
@@ -122,7 +122,6 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {
         String userNameValue = userNameField.getText();
         String passwordValue = passwordField.getText();
-
         if (!userNameValue.equals("") && !passwordValue.equals("")) {
             singInBtn.setEnabled(true);
         } else {
