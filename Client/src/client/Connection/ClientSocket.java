@@ -17,7 +17,8 @@ public class ClientSocket extends Socket {
 
     String userName;
     String pass;
-        
+    String email;
+    String userStatus;   
     public DataInputStream fromServer;
     public PrintStream toServer;
     
@@ -44,7 +45,17 @@ public class ClientSocket extends Socket {
         return authenticationStatus;
     }
     
-    
+     public void sendSignUpData(String user_name,String password,String email){
+        this.userName = user_name;
+        this.pass = password;
+        this.email = email;
+        this.userStatus = "offline";
+        
+        this.toServer.println(userName);
+        this.toServer.println(pass);
+        this.toServer.println(this.email);
+        this.toServer.println(userStatus);
+    }
 
     public ClientSocket(SocketImpl x) {
         super();
@@ -64,5 +75,12 @@ public class ClientSocket extends Socket {
 
     public void setUserPass(String _pass) {
         this.pass = _pass;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

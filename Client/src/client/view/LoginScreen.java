@@ -110,11 +110,11 @@ public class LoginScreen extends JFrame implements ActionListener, KeyListener {
 //                Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
 //            }
         }
-//        if (choice.equals("Sign Up")) {
-//            System.out.println("sign up");
-//            this.dispose();
-//            new SignUpScreen().showSignUpScreen();
-//        }
+        if (choice.equals("Sign Up")) {
+            System.out.println("sign up");
+            this.dispose();
+            new SignUpScreen(client).showSignUpScreen();
+        }
     }
 
     @Override

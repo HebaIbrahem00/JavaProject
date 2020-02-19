@@ -47,13 +47,14 @@ public class User_DB {
 
     //A static function used to insert data of newely signed up user
     //it inserts data into the user table
-    public static void insertUser(String userName, String password, String email) throws SQLException, ClassNotFoundException {
+    public static boolean insertUser(String userName, String password, String email) throws SQLException, ClassNotFoundException {
         conn = connect();
         PreparedStatement pst = conn.prepareStatement("INSERT INTO `user` (`user_id`, `user_name`, `password`, `email`, `user_status`) VALUES (NULL, ?, ?, ?, 0);");
         pst.setString(1, userName);
         pst.setString(2, password);
         pst.setString(3, email);
-        pst.execute();
+        boolean result= pst.execute();
+        return result;
     }
 
     //A static function used to retrieve data from database

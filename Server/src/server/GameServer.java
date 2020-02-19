@@ -96,7 +96,7 @@ public class GameServer extends Application {
 
     public class ClientHandlerThread extends Thread {
 
-        String player, opponent, password ;
+        String player, opponent, password , email;
         DataInputStream fromPlayer;
         PrintStream toPlayer;
 
@@ -118,7 +118,12 @@ public class GameServer extends Application {
                             String pass = fromPlayer.readLine();
                             toPlayer.println(User_DB.checkUser(userName, pass));
                             break;
-                            
+                        case Protocol.SIGNUP:
+                            player = fromPlayer.readLine();
+                            password = fromPlayer.readLine();
+                            email = fromPlayer.readLine();
+                            toPlayer.println(User_DB.insertUser(player, password, email));
+                            break;
                         case "CHOOSEOPPONENT":
                             int found = 0;
                             System.out.println("server received chosoe opponent");
