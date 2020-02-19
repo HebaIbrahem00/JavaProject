@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -22,7 +23,8 @@ public class MainMenuGUI extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }

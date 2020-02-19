@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -25,6 +26,8 @@ public class FirstSceneBuilder extends Application {
         Scene scene = new Scene(root);
 //        Button b1 = (Button) scene.lookup("#b");
 //        b1.setText("t");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Game Board");
         stage.setScene(scene);
         stage.show();
     }

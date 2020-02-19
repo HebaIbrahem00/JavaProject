@@ -67,7 +67,8 @@ public class FXMLDocumentController implements Initializable {
                             //the game is not over yet, allow the computer to play its turn
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -96,7 +97,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -126,7 +128,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -156,7 +159,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -186,7 +190,7 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -216,7 +220,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -246,7 +251,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -276,7 +282,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -306,7 +313,8 @@ public class FXMLDocumentController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            System.out.println(pos);
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
