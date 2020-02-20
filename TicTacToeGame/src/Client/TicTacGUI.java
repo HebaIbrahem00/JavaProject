@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client2;
+package Client;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -34,7 +34,7 @@ public class TicTacGUI {
     private BufferedReader in;
 //    private DataInputStream in;
     private Board board;
-    private String me;
+    private  String me;
     private Stage stage;
     private Scene sc;
     private Button[] buttons = new Button[9];
@@ -86,11 +86,13 @@ public class TicTacGUI {
                      if (fromServ.equals(Protocol.CONNECTED)){
                          /////////////////////////////////
                          System.out.println("server confirmed opponent");
+//                          me=in.readLine(); //reading X or O
                          Platform.runLater(()->stage.setScene(boardScene));
+                         System.out.println("I'm "+me);
+                         ///Here w shall start another thread that will handle the Data Exchange from and to Server 
+                         //and every thing else until WON OR Lose
                          
-                         ///Here w shall start another thread that will handle the Data Exchange from and to Server
-                         
-                     } else {//System.exit(0);
+                     } else {
                          System.out.println("2nd print out"+fromServ);
                      }}
                  
@@ -106,7 +108,7 @@ public class TicTacGUI {
         root.setDisable(true);
         
         //////////////////////////////////
-        if (me.equals("X")) {
+       if (me.equals("X")) {
             root.setBottom(new Text("Your turn. . ."));
             root.setDisable(false);
         }
@@ -117,9 +119,13 @@ public class TicTacGUI {
             Button b = (Button) n;
             b.setOnAction(e -> {
                 int[] data = (int[]) b.getUserData();
+                
+                System.out.println("data[0]= "+data[0]);
+                 System.out.println("data[1]"+data[1]);
+                
                 if (board.isValidMove(data[1], data[0])) {
                     board.makeMove(data[1], data[0], me);
-                    out.println(Protocol.MAKE_MOVE);
+                    out.println(Protocol.MAKE_MOVE);/////this one is sent
                     out.println(data[1] + " " + data[0]);
                     
                     
@@ -142,8 +148,7 @@ public class TicTacGUI {
                         switch (line) {
                             case Protocol.MOVE_MADE:
                                 System.out.println("MOVE MADE"); //TODO
-                                String move = in.readLine();
-                              
+                                String move = in.readLine();     
                                 System.out.println("MOVE " + move); // TODO
                                 String[] l = move.split(" ");
                                 String p;
