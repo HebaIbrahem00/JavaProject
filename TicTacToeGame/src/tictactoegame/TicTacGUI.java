@@ -7,7 +7,7 @@ package tictactoegame;
 
 /**
  *
- * @author omar
+ * @author elkholy
  */
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -43,9 +43,9 @@ public class TicTacGUI {
     private Scene sc;
     private Button[] buttons = new Button[9];
     private Socket socket;
-    FXMLDocumentController myFXML=new FXMLDocumentController();
+    FXMLDocumentController myFXML = new FXMLDocumentController();
 
-    public TicTacGUI(String host, int port, String me, Stage stage, Scene sc ) throws IOException {
+    public TicTacGUI(String host, int port, String me, Stage stage, Scene sc) throws IOException {
         this.socket = new Socket(host, port);
         this.out = new PrintWriter(socket.getOutputStream(), true);
         this.in = new BufferedReader(
@@ -59,49 +59,10 @@ public class TicTacGUI {
 
     public void run() throws IOException {
         System.out.println("RUNNNNN"); //TODO
-        BorderPane w = new BorderPane();
-        w.setStyle("-fx-background-color: transparent;");
-        Text txt = new Text("Waiting for player two...");
-        txt.setFill(Color.GRAY);
-        txt.setFont(Font.font("Monospaced", 20));
-        w.setTop(txt);
-        Scene waiting = new Scene(w, 300, 300, Color.WHITE);
-        stage.setScene(waiting);
-//      //  BorderPane root = new BorderPane();
-//     //   root.setStyle("-fx-background-color: transparent");
-//        final Group ro = (Group) sc.getRoot();
-//        AnchorPane grid = (AnchorPane) ro.getChildren().get(0);
-//        root.setCenter(grid);
-//        root.setBottom(new Text("Connecting. . ."));
-//        Scene s = new Scene(root, 600, 600, Color.WHITE);
-//        Runnable r1 = new Runnable() {
-//            public void run() {
-//                try {
-//                    if (in.readLine().equals(Protocol.CONNECTED)) {
-//                        Platform.runLater(() -> stage.setScene(s));
-//                    } else {
-//                        System.exit(0);
-//                    }
-//
-//                } catch (IOException e) {
-//                    System.out.println("something went wrong");
-//                }
-//            }
-//        };
-    //    Thread t1 = new Thread(r1);
-     //   t1.start();
-
-// //       root.setBottom(new Text("Waiting for opponent. . ."));
-// //       root.setDisable(true);
-//        if (me.equals("X")) {
-//            root.setBottom(new Text("Your turn. . ."));
-//            root.setDisable(false);
-//        }
-
-        
+         
         Parent parent = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        Label winloselabel=(Label) parent.lookup("#winloselabel");
-        Scene se=new Scene(parent);
+        Label winloselabel = (Label) parent.lookup("#winloselabel");
+        Scene se = new Scene(parent);
         buttons[0] = (Button) se.lookup("#b1");
         buttons[1] = (Button) se.lookup("#b2");
         buttons[2] = (Button) se.lookup("#b3");
@@ -111,192 +72,163 @@ public class TicTacGUI {
         buttons[6] = (Button) se.lookup("#b7");
         buttons[7] = (Button) se.lookup("#b8");
         buttons[8] = (Button) se.lookup("#b9");
-        
-         buttons[0].setOnAction(new EventHandler<ActionEvent>(){
+
+        buttons[0].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(0,0)) {
-                        board.makeMove(0, 0, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(0 + " " +0);
-                        System.out.println(me);
-                         buttons[0].setText(me);
-                     //   myFXML.playerXO(me,out);
-                      winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(0, 0)) {
+                    board.makeMove(0, 0, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(0 + " " + 0);
+                    System.out.println(me);
+                    buttons[0].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-         buttons[1].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[1].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(0,1)) {
-                        board.makeMove(0, 1, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(1 + " " +0);
-                        System.out.println(me);
-                         buttons[1].setText(me);
-                     //   myFXML.playerXO(me,out);
-                       winloselabel.setText("Waiting for opponent. . .");
-                         parent.setDisable(true);
-                    }
+                if (board.isValidMove(0, 1)) {
+                    board.makeMove(0, 1, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(1 + " " + 0);
+                    System.out.println(me);
+                    buttons[1].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-         buttons[2].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[2].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(0,2)) {
-                        board.makeMove(0, 2, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(2 + " " +0);
-                        System.out.println(me);
-                         buttons[2].setText(me);
-                     //   myFXML.playerXO(me,out);
-                        winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(0, 2)) {
+                    board.makeMove(0, 2, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(2 + " " + 0);
+                    System.out.println(me);
+                    buttons[2].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-         buttons[3].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[3].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(1,0)) {
-                        board.makeMove(1, 0, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(0 + " " +1);
-                        System.out.println(me);
-                         buttons[3].setText(me);
-                     //   myFXML.playerXO(me,out);
-                       winloselabel.setText("Waiting for opponent. . .");
-                       parent.setDisable(true);
-                    }
+                if (board.isValidMove(1, 0)) {
+                    board.makeMove(1, 0, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(0 + " " + 1);
+                    System.out.println(me);
+                    buttons[3].setText(me);
+                    //   myFXML.playerXO(me,out);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-         buttons[4].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[4].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(1,1)) {
-                        board.makeMove(1, 1, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(1 + " " +1);
-                        System.out.println(me);
-                         buttons[4].setText(me);
-                     //   myFXML.playerXO(me,out);
-                       winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(1, 1)) {
+                    board.makeMove(1, 1, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(1 + " " + 1);
+                    System.out.println(me);
+                    buttons[4].setText(me);
+                    //   myFXML.playerXO(me,out);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-          buttons[5].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[5].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(1,2)) {
-                        board.makeMove(1, 2, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(2 + " " +1);
-                        System.out.println(me);
-                         buttons[5].setText(me);
-                     //   myFXML.playerXO(me,out);
-                       winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(1, 2)) {
+                    board.makeMove(1, 2, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(2 + " " + 1);
+                    System.out.println(me);
+                    buttons[5].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-           buttons[6].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[6].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(2,0)) {
-                        board.makeMove(2, 0, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(0 + " " +2);
-                        System.out.println(me);
-                         buttons[6].setText(me);
-                     //   myFXML.playerXO(me,out);
-                        winloselabel.setText("Waiting for opponent. . .");
-                       parent.setDisable(true);
-                    }
+                if (board.isValidMove(2, 0)) {
+                    board.makeMove(2, 0, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(0 + " " + 2);
+                    System.out.println(me);
+                    buttons[6].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-          buttons[7].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[7].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(2,1)) {
-                        board.makeMove(2, 1, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(1 + " " +2);
-                        System.out.println(me);
-                         buttons[7].setText(me);
-                     //   myFXML.playerXO(me,out);
-                        winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(2, 1)) {
+                    board.makeMove(2, 1, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(1 + " " + 2);
+                    System.out.println(me);
+                    buttons[7].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-           buttons[8].setOnAction(new EventHandler<ActionEvent>(){
+
+        });
+        buttons[8].setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("b1");
-                 if (board.isValidMove(2,2)) {
-                        board.makeMove(2, 2, me);
-                        out.println(Protocol.MAKE_MOVE);
-                        out.println(2 + " " +2);
-                        System.out.println(me);
-                         buttons[8].setText(me);
-                     //   myFXML.playerXO(me,out);
-                        winloselabel.setText("Waiting for opponent. . .");
-                        parent.setDisable(true);
-                    }
+                if (board.isValidMove(2, 2)) {
+                    board.makeMove(2, 2, me);
+                    out.println(Protocol.MAKE_MOVE);
+                    out.println(2 + " " + 2);
+                    System.out.println(me);
+                    buttons[8].setText(me);
+                    winloselabel.setText("Waiting for opponent. . .");
+                    parent.setDisable(true);
+                }
             }
-           
-         });
-         stage.setScene(se);
-//        int i = 0;
-//        for (Button b : buttons) {
-//        //    Button b = (Button) n;
-//            b.setOnAction(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent e) {
-//                    int[] data = (int[]) b.getUserData();
-//                    System.out.print("Data 0 1= " + data[0] + data[1]);
-//                    if (board.isValidMove(data[1], data[0])) {
-//                        board.makeMove(data[1], data[0], me);
-//                        out.println(Protocol.MAKE_MOVE);
-//                        out.println(data[1] + " " + data[0]);
-//                        b.setText(me);
-//                     //   myFXML.playerXO(me,out);
-//                        root.setBottom(new Text("Waiting for opponent. . ."));
-//                        root.setDisable(true);
-//                    }
-//                }
-//            });
-//            buttons[i] = b;
-//            i++;
-//        }
+
+        });
+        stage.setScene(se);
 
         Runnable r = new Runnable() {
             public void run() {
@@ -356,7 +288,7 @@ public class TicTacGUI {
 
     private void refresh(int row, int col) {
         buttons[(col * 3) + row].setText(this.board.getTile(row, col));
-           // buttons[0].setText("o");
+        // buttons[0].setText("o");
 
     }
 }

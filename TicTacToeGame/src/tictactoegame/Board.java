@@ -8,7 +8,7 @@ package tictactoegame;
 
 /**
  *
- * @author omar
+ * @author elkholy
  */
 import java.util.Arrays;
 

@@ -32,67 +32,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.StageStyle;
 
-// Todo add a cancel button
-// Todo help button/ menu
-// Todo test stuff third move crashes??
-// Todo both start a new game on the same port... BAD
-// Todo fix when one client closes the other crashes
+ 
 public class Client extends Application {
 
     @Override
     public void start(Stage s) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-//        Button[] buttons = new Button[9];
-//        buttons[0] = (Button) root.lookup("#b1");
-//        buttons[1] = (Button) root.lookup("#b4");
-//        buttons[2] = (Button) root.lookup("#b7");
-//        buttons[3] = (Button) root.lookup("#b2");
-//        buttons[4] = (Button) root.lookup("#b5");
-//        buttons[5] = (Button) root.lookup("#b8");
-//        buttons[6] = (Button) root.lookup("#b3");
-//        buttons[7] = (Button) root.lookup("#b6");
-//        buttons[8] = (Button) root.lookup("#b9");
-        
 
         GridPane board = (GridPane) root.lookup("#grid");
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                Button btn = new Button();
-//                btn.setStyle("-fx-border-color: Lightgray; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 80; -fx-font-family: Monospaced;");
-//                btn.setMaxSize(100, 100);
-//                btn.setPrefSize(100, 100);
-//                btn.setPadding(new Insets(0));
-//                btn.setUserData(new int[]{i, j});
-//              //  board.add(btn, i, j);
-//            }
-//        }
+//        
         final Group bb = new Group(root);
 
         final Scene boardscene = new Scene(bb, 600, 600, Color.WHITE);
         
-//        s.initStyle(StageStyle.TRANSPARENT);
-//        s.setTitle("Main Menu");
-//        s.setScene(scene);
-//        s.show();
-//
-        // Set up the button grid representing the tic tac toe board
-//        GridPane board = new GridPane();
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                Button btn = new Button();
-//                btn.setStyle("-fx-border-color: Lightgray; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 80; -fx-font-family: Monospaced;");
-//                btn.setMaxSize(100, 100);
-//                btn.setPrefSize(100,100);
-//                btn.setPadding(new Insets(0));
-//                btn.setUserData(new int[] {i, j});
-//                board.add(btn, i, j);
-//            }
-//        }
-//        final Group root = new Group(board);
-//        final Scene scene = new Scene(root, 300, 300, Color.WHITE);
-        // sets up port screen
-
         // start new game
         BorderPane spo = new BorderPane();
         spo.setStyle("-fx-background-color: transparent");
