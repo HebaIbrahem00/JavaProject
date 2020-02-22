@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client2;
+package client;
+
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -29,24 +30,23 @@ import javafx.stage.Stage;
  *
  * @author Elkholy
  */
-public class TicTacGUI {
+public class TicTacGUI  {
     private PrintWriter out;
     private BufferedReader in;
-//    private DataInputStream in;
     private Board board;
-  private  String me;
+    private  String me;
     private Stage stage;
     private Scene sc;
     private Button[] buttons = new Button[9];
     private CustomizedClientSocket socket;
 
-    public TicTacGUI(CustomizedClientSocket _socket,  Stage stage, Scene sc) throws IOException {
+    public TicTacGUI(CustomizedClientSocket _socket, String me, Stage stage, Scene sc) throws IOException {
      
         this.socket=_socket; //socket l client nafso msh haya5od ay sockets tanya 
-        this.out=socket.toServer;
-        this.in=socket.fromServer;
+        this.out=_socket.toServer;
+        this.in=_socket.fromServer;
         this.board = new Board();
-      //  this.me = me; //X or O
+        this.me = me; //X or O
         this.stage = stage;
         this.sc = sc;
     }
@@ -80,13 +80,13 @@ public class TicTacGUI {
              public void run() {
                  try {
                      System.out.println("entered the try");
-                     String fromServ = null;
+                     String fromServ;
                      fromServ = in.readLine();
                      System.out.println(fromServ);
                      if (fromServ.equals(Protocol.CONNECTED)){
                          /////////////////////////////////
                          System.out.println("server confirmed opponent");
-                          me=in.readLine(); //reading X or O
+//                          me=in.readLine(); //reading X or O
                          Platform.runLater(()->stage.setScene(boardScene));
                          System.out.println("I'm "+me);
                          ///Here w shall start another thread that will handle the Data Exchange from and to Server 
@@ -99,7 +99,22 @@ public class TicTacGUI {
                  catch (IOException e) {
                      System.out.println("something went wrong");
                  }
-                   int i = 0;
+             }
+         };
+        Thread waitingThread = new Thread(forWaiting);
+        waitingThread.start();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        root.setBottom(new Text("Waiting for opponent. . ."));
+        root.setDisable(true);
+        
+        //////////////////////////////////
+       if (me.equals("X")) {
+            root.setBottom(new Text("Your turn. . ."));
+            root.setDisable(false);
+        }
+
+
+        int i = 0;
         for (Node n : grid.getChildren()) {
             Button b = (Button) n;
             b.setOnAction(e -> {
@@ -122,44 +137,6 @@ public class TicTacGUI {
             buttons[i] = b;
             i++;
         }
-             }
-         };
-        Thread waitingThread = new Thread(forWaiting);
-        waitingThread.start();
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        root.setBottom(new Text("Waiting for opponent. . ."));
-        root.setDisable(true);
-        
-        //////////////////////////////////
-    /*   if (me.equals("X")) {
-            root.setBottom(new Text("Your turn. . ."));
-            root.setDisable(false);
-        }*/
-
-
-      /*  int i = 0;
-        for (Node n : grid.getChildren()) {
-            Button b = (Button) n;
-            b.setOnAction(e -> {
-                int[] data = (int[]) b.getUserData();
-                
-                System.out.println("data[0]= "+data[0]);
-                 System.out.println("data[1]"+data[1]);
-                
-                if (board.isValidMove(data[1], data[0])) {
-                    board.makeMove(data[1], data[0], me);
-                    out.println(Protocol.MAKE_MOVE);/////this one is sent
-                    out.println(data[1] + " " + data[0]);
-                    
-                    
-                    b.setText(me);
-                    root.setBottom(new Text("Waiting for opponent. . ."));
-                    root.setDisable(true);
-                }
-            });
-            buttons[i] = b;
-            i++;
-        }*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //2nd Thread in runLogic function that  ???
         Runnable r = new Runnable() {
@@ -171,8 +148,7 @@ public class TicTacGUI {
                         switch (line) {
                             case Protocol.MOVE_MADE:
                                 System.out.println("MOVE MADE"); //TODO
-                                String move = in.readLine();
-                              
+                                String move = in.readLine();     
                                 System.out.println("MOVE " + move); // TODO
                                 String[] l = move.split(" ");
                                 String p;
@@ -208,7 +184,7 @@ public class TicTacGUI {
         };
 
         Thread t = new Thread(r);
-        t.start();
+       // t.start();
     }
 
     private void refresh(int row, int col) {

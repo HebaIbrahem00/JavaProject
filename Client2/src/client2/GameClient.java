@@ -5,6 +5,7 @@
  */
 package client2;
 
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -28,28 +29,29 @@ import javafx.application.Platform;
  *
  * @author omar
  */
-public class GameClient extends Application {
+public class GameClient extends Application{
+CustomizedClientSocket clientSocket; 
 
-    CustomizedClientSocket clientSocket;
 //dh mafrod haytbdl yb2a feh kol l scenes l abl l board
 
-    @Override
+      @Override
     public void start(Stage s) throws IOException {
-        clientSocket = new CustomizedClientSocket("127.0.0.1", 9000);//dh hayt7at f awl haga hat run fl client .jar
-
+         clientSocket=  new CustomizedClientSocket("127.0.0.1",9000);//dh hayt7at f awl haga hat run fl client .jar
+         
         signIn(clientSocket.toServer, "Ahmed");
 
         // Set up the button grid representing the tic tac toe board
+        
         GridPane board = new GridPane();
-
+        
         for (int i = 0; i < 3; i++) { //Constructing Board GUI
             for (int j = 0; j < 3; j++) {
                 Button btn = new Button();
                 btn.setStyle("-fx-border-color: Lightgray; -fx-text-fill: Gray; -fx-border-width: 1; -fx-background-color: transparent; -fx-font-size: 80; -fx-font-family: Monospaced;");
                 btn.setMaxSize(100, 100);
-                btn.setPrefSize(100, 100);
+                btn.setPrefSize(100,100);
                 btn.setPadding(new Insets(0));
-                btn.setUserData(new int[]{i, j});
+                btn.setUserData(new int[] {i, j});
                 board.add(btn, i, j);
             }
         }
@@ -57,13 +59,15 @@ public class GameClient extends Application {
         final Scene XOscene = new Scene(root, 300, 300, Color.WHITE);
 
         // sets up port screen
+
         // start new game
         BorderPane spo = new BorderPane();
         spo.setStyle("-fx-background-color: transparent");
-
+       
+        
         TextField txtport = new TextField();
         //below we'll assume that stages of signup and/or sign in is done
-        /*  txtport.setOnAction(e -> { //This will be replaced by a click listener on one of the online list the server will sent
+      /*  txtport.setOnAction(e -> { //This will be replaced by a click listener on one of the online list the server will sent
             try {
                 
                 System.out.println("choosing opponent");
@@ -80,7 +84,8 @@ public class GameClient extends Application {
                 System.out.println("something bad happened");
             }
         });*/
-
+        
+     
         Text st = new Text("Choose Opponent ");
         st.setFont(Font.font("Monospaced", 20));
         st.setFill(Color.GRAY);
@@ -88,14 +93,15 @@ public class GameClient extends Application {
         VBox form = new VBox(st, txtport);
         spo.setCenter(form);
 
+     
         BorderPane jpo = new BorderPane();
         jpo.setStyle("-fx-background-color: transparent");
         Text st2 = new Text("Join game on what port? ");
         st2.setFont(Font.font("Monospaced", 20));
         st2.setFill(Color.GRAY);
-
+  
         final Scene startportscreen = new Scene(spo, 300, 300, Color.WHITE);
-        final Scene joinportscreen = new Scene(jpo, 300, 300, Color.WHITE);
+        final Scene joinportscreen  = new Scene(jpo, 300, 300, Color.WHITE);
 
         // Sets up the game initialization page
         Button start = new Button("Start a new game");
@@ -113,7 +119,7 @@ public class GameClient extends Application {
 
         start.setOnMousePressed(e -> s.setScene(startportscreen));
         join.setOnMousePressed(e -> s.setScene(joinportscreen));
-        connect("O", s, XOscene);
+         connect( s, XOscene);
         VBox options = new VBox(start, join);
         Group ls = new Group(options);
         final Scene loginscreen = new Scene(ls, 300, 300, Color.WHITE);
@@ -124,12 +130,12 @@ public class GameClient extends Application {
         s.show();
     }
 
-    private void connect(String XO, Stage stage, Scene sc) throws IOException {
-        TicTacGUI client = new TicTacGUI(clientSocket, XO, stage, sc); //3ayze 
+    private  void connect(Stage stage, Scene sc) throws IOException {
+        TicTacGUI client = new TicTacGUI(clientSocket,stage, sc); //3ayze 
         client.runLogic();////.//////////here needs to be changed
     }
-
-    private static void signIn(PrintWriter toServer, String username) {
+    private static void signIn( PrintWriter toServer, String username)
+    { 
         toServer.println(Protocol.SIGNIN); //we dy mfrod awl ma yb2a fl scener bta3 l login asln(2bl l listener)
         toServer.println(username);//dy hatetshal mn hna lel event listener
     }
@@ -138,9 +144,12 @@ public class GameClient extends Application {
     public void stop() {
         System.exit(0);
     }
+    
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException 
+    {
         Application.launch(args);
     }
+
 
 }
