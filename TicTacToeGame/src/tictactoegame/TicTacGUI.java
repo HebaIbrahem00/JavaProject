@@ -228,6 +228,7 @@ public class TicTacGUI {
             }
 
         });
+        
         stage.setScene(se);
 
         Runnable r = new Runnable() {
