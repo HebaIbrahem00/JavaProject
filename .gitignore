@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 /TicTacToeGame/dist/
 /JavaApplication32/nbproject/private/
 /JavaApplication32/build/
 /JavaApplication32/dist/
+=======
+/ClientTest/build/
+/ClientTest/dist/
+/ClientTest/nbproject/private/
+/Server/dist/
+>>>>>>> DatabseBranch
