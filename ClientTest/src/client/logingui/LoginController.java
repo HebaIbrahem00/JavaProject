@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import Validation.*;
 
 /**
  * uthor lamis
@@ -40,26 +41,17 @@ public class LoginController implements Initializable {
     @FXML
     //this is the action listener of the login button
     private void loginPressed(ActionEvent event) throws IOException {
-        email = emailField.getText();
-        if(email.equals("")){
-            System.out.println("vjfiojdodifj");
-            //emailValidation.setText("PLease Enter Your Name");
-            email = emailField.getText();
+        boolean result = Sign_In_and_Sign_Up_Validation.nameNotEmpty(emailField, emailValidation, "Name Reequired");
+        boolean result2 = Sign_In_and_Sign_Up_Validation.passwordValidation(passwordField, passwordValidation, "Pssword Required");
+        if (result && result2) {
+            send_To_Server(emailField.getText(), passwordField.getText());
         }
-        /*if (emailField.getText() == null || emailField.getText().isEmpty()){
-            emailValidation.setText("PLease Enter Your Name");
-        }*/
-        password = passwordField.getText();
-        if(password.equals("")){
-            System.out.println("vjfiojdodifj");
-            //passwordValidation.setText("PLease Enter Your Password");
-            password = passwordField.getText();
-        }
+    }
+
+    public void send_To_Server(String email, String password) throws IOException {
         ClientSocket.toServer.println(Protocol.SIGNIN);
         ClientSocket.sendLoginData(email, password);
         ClientSocket.toServer.println(Protocol.ONLINEPLAYERS);
-        //label.setText("Hello World!");
-        //System.out.println(email+password);
     }
 
     @FXML
