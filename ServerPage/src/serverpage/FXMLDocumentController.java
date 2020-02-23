@@ -18,30 +18,10 @@ import javafx.scene.text.Text;
  * @author lamis
  */
 public class FXMLDocumentController implements Initializable {
-    public Text OnClients;
-    @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    //function of switch server on button,, OnClients is the number of clients online
-    @FXML
-    private void ServerOnPressed(ActionEvent event) {
-        //System.out.println("You clicked me server on");
-        //OnClients.setText("5");
-    }
-    //function of switch server off button
-    @FXML
-    private void ServerOffPressed(ActionEvent event) {
-        //System.out.println("You clicked me server off");
-        
-    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        
+    }
+
 }

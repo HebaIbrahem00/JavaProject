@@ -16,17 +16,17 @@
             <Font name="Tempus Sans ITC" size="52.0" />
          </font>
       </Label>
-      <Text fill="#06657f" layoutX="24.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Online Clients :" wrappingWidth="323.13671875">
+      <Text fill="#06657f" layoutX="24.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To Our Server" wrappingWidth="323.13671875">
          <font>
             <Font name="Bookman Old Style Bold" size="23.0" />
          </font>
       </Text>
-      <Button fx:id="ServerOnBtn" layoutX="451.0" layoutY="204.0" mnemonicParsing="false" onAction="#ServerOnPressed" prefHeight="44.0" prefWidth="221.0" style="-fx-background-color: #0c7e13; -fx-background-radius: 10px; -fx-border-color: #063d09; -fx-border-radius: 4px; -fx-border-width: 3;" text="Server On" textFill="#f8f0f0">
+      <Button id="OnBtn" fx:id="ServerOnBtn" layoutX="451.0" layoutY="204.0" mnemonicParsing="false"  prefHeight="44.0" prefWidth="221.0" style="-fx-background-color: #0c7e13; -fx-background-radius: 10px; -fx-border-color: #063d09; -fx-border-radius: 4px; -fx-border-width: 3;" text="Server On" textFill="#f8f0f0">
          <font>
             <Font name="Bookman Old Style Bold" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="ServerOffBtn" layoutX="451.0" layoutY="287.0" mnemonicParsing="false" onAction="#ServerOffPressed" prefHeight="44.0" prefWidth="221.0" style="-fx-background-color: #a50303; -fx-background-radius: 10px; -fx-border-color: #500202; -fx-border-radius: 4px; -fx-border-width: 3;" text="Server Off" textFill="#f8f0f0">
+      <Button id="OffBtn" fx:id="ServerOffBtn" layoutX="451.0" layoutY="287.0" mnemonicParsing="false"  prefHeight="44.0" prefWidth="221.0" style="-fx-background-color: #a50303; -fx-background-radius: 10px; -fx-border-color: #500202; -fx-border-radius: 4px; -fx-border-width: 3;" text="Server Off" textFill="#f8f0f0">
          <font>
             <Font name="Bookman Old Style Bold" size="26.0" />
          </font>
