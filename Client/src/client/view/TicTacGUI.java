@@ -43,23 +43,17 @@ public class TicTacGUI {
     private Stage stage;
     private Scene sc;
     private Button[] buttons = new Button[9];
-    private Socket socket;
     OnlineTicTacController myFXML = new OnlineTicTacController();
 
-    public TicTacGUI(String host, int port, String me, Stage stage, Scene sc) throws IOException {
-        this.socket = new Socket(host, port);
-        this.out = new PrintWriter(socket.getOutputStream(), true);
-        this.in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+    public TicTacGUI(String me, Stage stage, Scene sc) throws IOException {
         this.board = new Board();
         this.me = me;
-        System.out.println(me);
         this.stage = stage;
         this.sc = sc;
     }
 
     public void run() throws IOException {
-        System.out.println("RUNNNNN"); //TODO
+        System.out.println("Game On");
          
         Parent parent = FXMLLoader.load(getClass().getResource("OnlineTicTac.fxml"));
         Label winloselabel = (Label) parent.lookup("#winloselabel");

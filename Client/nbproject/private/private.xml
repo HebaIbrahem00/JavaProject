@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/view/LoginController.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/view/Main.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/Connection/GameLogic.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/view/DisplayUsers.fxml</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/Connection/Protocol.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/JavaProject/Client/src/client/view/DisplayUsersController.java</file>
+            <file>file:/Users/omar/Documents/GitHub/JavaProject/Client/src/client/view/MainMenuController.java</file>
+            <file>file:/Users/omar/Documents/GitHub/JavaProject/Client/src/client/view/TicTacGUI.java</file>
         </group>
     </open-files>
 </project-private>
