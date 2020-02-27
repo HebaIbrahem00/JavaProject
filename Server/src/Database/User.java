@@ -1,12 +1,10 @@
 package Database;
 
-import javafx.beans.property.*;
-import java.sql.Date;
+import org.json.JSONObject;
 
 public class User {
 
     //Declare user Table Columns
-
     private int userID;
     private String userName;
     private String password;
@@ -18,6 +16,13 @@ public class User {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
+        this.email = email;
+        this.userStatus = userStatus;
+    }
+
+    //a customized User constructor used when we want to retrieve uset
+    public User(String userName, String email, String userStatus) {
+        this.userName = userName;
         this.email = email;
         this.userStatus = userStatus;
     }

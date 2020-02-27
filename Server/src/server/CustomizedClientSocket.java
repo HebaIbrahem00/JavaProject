@@ -1,31 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package server;
 
 import java.io.BufferedReader;
-import java.net.SocketImpl;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.SocketImpl;
 import java.net.UnknownHostException;
-import java.net.*;
+import server.Protocol;
 
-/**
- *
- * @author BOB
- */
 public class CustomizedClientSocket extends Socket {
 
-    String Player;
-    BufferedReader fromServer;
-    PrintWriter toServer;
+    static String userName;
+    static String pass;
+    static String email;
+    static BufferedReader fromServer;
+    static PrintWriter toServer;
+    static public int port;
+    public String ipAdress;
 
     public CustomizedClientSocket(String address, int port) throws UnknownHostException, IOException {
 
@@ -40,15 +32,51 @@ public class CustomizedClientSocket extends Socket {
 
     }
 
-    public String getPlayer() {
-        return this.Player;
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void statePlayer(String x) {
-        this.Player = x;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-   
+    static public void initSocket(String ip, int port) throws IOException {
+        // Socket client = new Socket(ip, port);
+        CustomizedClientSocket client = new CustomizedClientSocket(ip, port);
 
     }
 
+    public static String sendLoginData(String userName, String pass) throws IOException {
+        //ClientSocket.toServer.println(Protocol.SIGNIN);
+        CustomizedClientSocket.toServer.println(Protocol.SIGNIN);
+        userName = userName;
+        pass = pass;
+
+        toServer.println(userName);
+        toServer.println(pass);
+        String authenticationStatus = fromServer.readLine();
+
+        return authenticationStatus;
+    }
+
+    public static void sendSignUpData(String userName, String pass, String email) throws IOException {
+        CustomizedClientSocket.userName = userName;
+        CustomizedClientSocket.pass = pass;
+        CustomizedClientSocket.email = email;
+
+        System.out.println(CustomizedClientSocket.userName + CustomizedClientSocket.pass);
+
+        toServer.println(CustomizedClientSocket.userName);
+        toServer.println(CustomizedClientSocket.pass);
+        toServer.println(CustomizedClientSocket.email);
+    }
+
+    public String getUserPass() {
+        return this.pass;
+    }
+
+    public void setUserPass(String _pass) {
+        this.pass = _pass;
+    }
+
+}

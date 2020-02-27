@@ -6,13 +6,11 @@ package server;
 
 import java.net.SocketImpl ;
 
-import java.lang.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.*;
 
 /**
- *
  * @author BOB
  */
 public class CustomizedServerSocket extends ServerSocket{
@@ -22,12 +20,9 @@ public class CustomizedServerSocket extends ServerSocket{
     }
     public Socket accept() throws IOException {
         Socket s;
-        
         s = new CustomizedClientSocket((SocketImpl) null);
         implAccept(s);
         
         return s;
     }
-
-    
 }

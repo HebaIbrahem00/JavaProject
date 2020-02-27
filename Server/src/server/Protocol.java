@@ -7,36 +7,43 @@ package server;
 
 /**
  *
-
+ *
  * @author omar
  */
 public interface Protocol {
+
+    String SIGNUP = "SIGNUP";
+
+    String SIGNIN = "SIGNIN";
+
+    String SHOWUSERS = "SHOWUSERS";  
+        
+    String CHOOSEOPPONENT = "CHOOSEOPPONENT";
+
+    String CONNECTED = "CONNECTED";
     
-  String SIGNUP = "SIGNUP";    
-   
-  String SIGNIN = "SIGNIN";  
-  
-  String CHOOSEOPPONENT="CHOOSEOPPONENT";
- 
-  
-   String CONNECTED = "CONNECTED" ;
-  
-  String AUTHINTICATED = "AUTHINTICATED";
-  
-  String ONLINEPLAYERS ="ONLINEPLAYERS";
-   
-  String GAMESCENE ="GAMESCENE";
-   
-  String MAKE_MOVE = "MAKE_MOVE";
+    String DISCONNECTED = "DISCONNECTED";
 
-  String MOVE_MADE = "MOVE_MADE";
+    String AUTHINTICATED = "AUTHINTICATED";
 
-  String GAME_WON = "GAME_WON";
+    String ONLINEPLAYERS = "ONLINEPLAYERS";
 
-  String GAME_LOST = "GAME_LOST";
+    String GAMESCENE = "GAMESCENE";
 
-  String GAME_TIED = "GAME_TIED";
+    String MAKE_MOVE = "MAKE_MOVE";
 
-  String ERROR = "ERROR";
+    String MOVE_MADE = "MOVE_MADE";
+
+    String GAME_WON = "GAME_WON";
+
+    String GAME_LOST = "GAME_LOST";
+
+    String GAME_TIED = "GAME_TIED";
+
+    String ERROR = "ERROR";
+    
+    String INVITATION = "INVITATION";
+    
+    String ACCEPTED = "ACCEPTED";
 
 }
