@@ -31,16 +31,7 @@ import javafx.stage.StageStyle;
 public class ServerPage extends Application {
 
     Vector<CustomizedClientSocket> players_sockets = new Vector();
-
-    Board board = new Board(); //msh ha3ml mnha object hna, ha5do mn l clients.
-
-    public static void stopServer() {
-
-    }
-
-    public static void startServer() {
-
-    }
+    Board board = new Board(); 
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -53,7 +44,6 @@ public class ServerPage extends Application {
             @Override
             public void handle(ActionEvent event) {
                 serverInfo.start();
-
             }
         });
         Off.setOnAction(new EventHandler<ActionEvent>() {
@@ -64,7 +54,6 @@ public class ServerPage extends Application {
                 } catch (IOException ex) {
                     Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
         });
         Scene scene = new Scene(root);
@@ -84,20 +73,22 @@ public class ServerPage extends Application {
         @Override
         public void run() {
 
-            super.run();
             System.out.println("server is listening");
             while (true) {
                 try {
                     client = (CustomizedClientSocket) server.accept();
-
                     System.out.println("a client connected");
                     try {
-                        ClientHandlerThread x = new ClientHandlerThread(client);
-                        x.start();
+                        ClientHandlerThread clientHandle = new ClientHandlerThread(client);
+                        clientHandle.start(); 
+                        players_sockets.add(client);
+                        players_sockets.lastElement().setThread(clientHandle);
                     } catch (IOException ex) {
                         Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    players_sockets.add(client);//////atal3ha fo2???
+                   
+                    
+                    System.out.println("a client added to vector");
 
                 } catch (IOException ex) {
                     Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,17 +98,16 @@ public class ServerPage extends Application {
         }
     }
 
+    
     public class ClientHandlerThread extends Thread {
-
-        String player, opponent, message;
-
+        String player, opponent, message, request, password, email, userName;
         BufferedReader fromPlayer;
         PrintWriter toPlayer;
 
         BufferedReader fromOpponent;
         PrintWriter toOpponent;
 
-        int found = 0;
+        int serverloop = 0;
 
         public ClientHandlerThread(CustomizedClientSocket c) throws IOException {
 
@@ -125,20 +115,16 @@ public class ServerPage extends Application {
             toPlayer = new PrintWriter(c.getOutputStream(), true);
         }
 
-        public void sendClientList() {
-
-            for (CustomizedClientSocket p : players_sockets) {
-                //excluding his name 
-                toPlayer.println(p.getUserName());
-            }
-        }
-
         public void updateBoard(PrintWriter out1, PrintWriter out2, BufferedReader in1, BufferedReader in2) throws IOException {
-            String line;
+           String line,line2 = null;
 
             try {
-                while ((line = in1.readLine()) != null || (line = in2.readLine()) != null) {
-                    if (line.equals(Protocol.MAKE_MOVE)) {
+                System.out.println("player "+player+" Entered update board"+Thread.currentThread());
+              //  while ((line = in1.readLine()) != null  || (line2 = in2.readLine()) != null) {
+                while(true){
+                    line = in1.readLine();
+                    line2 = in2.readLine();
+                if (line.equals(Protocol.MAKE_MOVE)) {
                         String move = in1.readLine();
                         String[] l = move.split(" ");
                         board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), "X");////////
@@ -160,8 +146,7 @@ public class ServerPage extends Application {
                         }
 
                     }
-
-                    if (line.equals(Protocol.MAKE_MOVE)) {
+                     if (line2.equals(Protocol.MAKE_MOVE)) {
                         String move = in2.readLine();
                         String[] l = move.split(" ");
                         board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), "O");
@@ -189,86 +174,71 @@ public class ServerPage extends Application {
                 e.printStackTrace();
                 System.exit(0);
             }
-
-        }
-
-        public void validateOpponent(CustomizedClientSocket client) {
-
-        }
-
-        public void updateScene(CustomizedClientSocket client) {
-        }
-
+  
+        }       
         @Override
         public void run() {
 
-            String userName;
-            String email;
-            String password;
-            int noUser = 0;
-            while (true) {
-
+                   while (true) {
+                serverloop += 1;
                 try {
-                    switch (fromPlayer.readLine()) {
+                      request = fromPlayer.readLine();
+                switch (request) {
                         case Protocol.SIGNIN:
+                            System.out.println("Protocol sign in received");
                             userName = fromPlayer.readLine();
                             password = fromPlayer.readLine();
-                            players_sockets.elementAt(noUser).setUserName(userName);
-                            System.out.println("UserNo" + players_sockets.get(noUser).getUserName());
-//                            players_sockets.lastElement().statePlayer(userName);
-//                            System.out.println(players_sockets.lastElement().getPlayer());
-                            toPlayer.println(User_DB.checkUser(userName, password));
+                            players_sockets.lastElement().setUserName(userName);
+                            players_sockets.lastElement().gettThread().setName(userName);
+                            
+                            System.out.println("player added and is " + players_sockets.lastElement().getUserName());
+                            System.out.println("NumOfPlayers = " + players_sockets.size());
+                            toPlayer.println(User_DB.checkUser(userName, password));//authintication returned
                             break;
+
                         case Protocol.SIGNUP:
-                            System.out.println("server sign up");
+                            System.out.println("protocol sign up received ");
                             userName = fromPlayer.readLine();
                             email = fromPlayer.readLine();
                             password = fromPlayer.readLine();
                             toPlayer.println(User_DB.validateNewUserData(userName, email, password));
-//                            System.out.println("Protocol.SignIn Recerived");
-//                            player = fromPlayer.readLine();
-//                            players_sockets.lastElement().statePlayer(player);//sets the playername in his socket 
-//                            System.out.println("NumOfPlayers = " + players_sockets.size());
-//                            System.out.println("player added and is " + players_sockets.lastElement().getPlayer());
+
                             break;
-                        case Protocol.DISCONNECTED:
+                        case Protocol.DISCONNECTED: //bttb3t mn Main.java ??
+                            System.out.println("protocol disconnect received ");
                             userName = fromPlayer.readLine();
                             User_DB.setUserOffline(userName);
                             break;
 
                         case Protocol.SHOWUSERS:
+                            System.out.println("protocol showusers received ");
                             toPlayer.println(User_DB.reteriveOnlinUser());
                             System.out.println(User_DB.reteriveOnlinUser());
                             break;
-                        case "CHOOSEOPPONENT":
-                            System.out.println("Protocol.ChooseOpp Received h");
+
+                        case Protocol.CHOOSEOPPONENT:
+                            System.out.println("Protocol.ChooseOpp Received ");
                             message = fromPlayer.readLine();////////////////////////////first readlin
 
                             if (message.startsWith("opponent")) {
-                                System.out.println("server entered if ");
+                                System.out.println("server received opponent name  ");
                                 opponent = message.substring(9);
-
-                                System.out.println("opponent is" + opponent);
-
+                                System.out.println("opponent is " + opponent);
+                            
                                 for (CustomizedClientSocket p : players_sockets) {
-                                    /*checks for opponent*/
-                                    if (p.getUserName() != player) {
 
-                                        System.out.println(p.getUserName());
+                                    System.out.println(p.getUserName());
 
-                                        if (opponent.equals(p.getUserName())) {
-                                            found += 1;
-                                            fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
-                                            toOpponent = new PrintWriter(p.getOutputStream(), true);
-                                            toOpponent.println(Protocol.INVITATION + ":" + player + '\n');
-
-                                        }
+                                    if (opponent.equals(p.getUserName())) {
+                                        System.out.println("Found " + opponent);
+                                        fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
+                                        toOpponent = new PrintWriter(p.getOutputStream(), true);
+                                        toOpponent.println(Protocol.INVITATION + ":" + userName);
+                                       p.gettThread().join();
                                     }
                                 }
                             } else if (message.startsWith("resultfrominvitation")) {
-
-                                System.out.println("server entered if else");
-
+                                System.out.println("server received result from invitation");
                                 String[] invite = message.split(":");
                                 String acceptance = invite[1];
                                 opponent = invite[2];
@@ -278,39 +248,39 @@ public class ServerPage extends Application {
                                 System.out.println("the one sent invitation is " + player);
 
                                 if (acceptance.equals(Protocol.ACCEPTED)) {
+                                    
                                     for (CustomizedClientSocket p : players_sockets) {
 
-                                        System.out.println("Entered for");
-                                        if (opponent.equals(p.getUserName())) {
-
-                                            fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
-                                            toOpponent = new PrintWriter(p.getOutputStream(), true);
-                                            this.sleep(2000);
-                                            toOpponent.println(Protocol.CONNECTED);
-                                            System.out.println("server sent protocol to " + p.getUserName());
-                                        }
-
-                                        if (player.equals(p.getUserName())) {
+                                        System.out.println("searching for who sent the invitatiion");   
+                                          if (player.equals(p.getUserName())) {
                                             toPlayer = new PrintWriter(p.getOutputStream(), true);
-
                                             fromPlayer = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
-                                            //this.sleep(2000);
                                             toPlayer.println(Protocol.CONNECTED);
                                             System.out.println("server sent protocol to " + p.getUserName());
                                         }
-                                    }
+                                        
+                                        if (opponent.equals(p.getUserName()))
+                                        { 
+                                          toOpponent = new PrintWriter(p.getOutputStream(), true);
+                                            fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
+                                            toOpponent.println(Protocol.CONNECTED);
+                                            System.out.println("we got opponent "+ p.getUserName()+"streams ");
+                                        }  
+                                      
+                                    }  updateBoard(toPlayer, toOpponent, fromPlayer, fromOpponent);
                                 }
-
-                                //here we need to clear buffer or make a tiny wait between the two streams
-                                try {
-                                    updateBoard(toPlayer, toOpponent, fromPlayer, fromOpponent);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                     
                             }
+                         
+                             else {//Here we shall handle when invitation is rejected
+                                System.out.println("server received " + message);
+                            }
+                            System.out.println("player "+userName+"finished choopse opp");
                             break;
-
-                        default:
+                     
+                            default:
+                                System.out.println("test "+request+Thread.currentThread());
+                                
                     }
 
                 } catch (IOException ex) {
@@ -322,6 +292,7 @@ public class ServerPage extends Application {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                System.out.println("serverloop times=" + serverloop+Thread.currentThread());
             }
         }
     }
