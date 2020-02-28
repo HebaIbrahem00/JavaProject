@@ -31,8 +31,9 @@
 - Sign Up
 - Online / Offline Status
 - Play vs Computer with levels
+- Hard Level was implemented using MiniMax Algorithm
 - Play vs another player 1 vs 1
-- Turn the Server On and Off.
+- Turn the Server On and Off
 
 # Built With
 -- [MySQL](https://dev.mysql.com/downloads/connector/j/)
