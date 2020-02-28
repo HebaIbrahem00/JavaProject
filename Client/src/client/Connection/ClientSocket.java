@@ -12,7 +12,11 @@ import java.net.*;
  * @author BOB
  */
 public class ClientSocket {
- 
+
+//       fromPlayer = new BufferedReader(new InputStreamReader(c.getInputStream(), "UTF-8"));
+//            toPlayer = new PrintWriter(c.getOutputStream(), true);
+    public static String Player;
+    public static String pass;
     public static BufferedReader fromServer;
     public static PrintWriter toServer;
 
@@ -20,12 +24,12 @@ public class ClientSocket {
         Socket client = new Socket(ip, port);
         toServer = new PrintWriter(client.getOutputStream(), true);
         fromServer = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
-//     
+//        toServer = new PrintStream(client.getOutputStream());
+//        fromServer = new DataInputStream(client.getInputStream());
     }
 
     // this Function is used to send recieve login data from the client for authentication
     public static String sendLoginData(String userName, String password) throws IOException {
-      
         ClientSocket.toServer.println(Protocol.SIGNIN);
         toServer.println(userName);
         toServer.println(password);
@@ -40,6 +44,7 @@ public class ClientSocket {
         toServer.println(userName);
         toServer.println(email);
         toServer.println(password);
+        Player = userName;
         String isDataValid = fromServer.readLine();
         System.out.println("sendSignUpData");
         return isDataValid;
@@ -49,13 +54,7 @@ public class ClientSocket {
     public static String retriveOnlineUsers() throws IOException {
         ClientSocket.toServer.println(Protocol.SHOWUSERS);
         String onlineUsers = fromServer.readLine();
+
         return onlineUsers;
     }
-    public static void invitation(String opponent)
-    {
-
-        toServer.println(opponent);
-    }
-   
-    
 }

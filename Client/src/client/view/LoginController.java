@@ -38,9 +38,7 @@ public class LoginController implements Initializable {
 
     @FXML
     //this is the action listener of the login button
-    
     private void loginPressed(ActionEvent event) throws IOException {
-        
         System.out.println("You clicked me!");
         String userName = emailField.getText();
         String password = passwordField.getText();
@@ -66,12 +64,10 @@ public class LoginController implements Initializable {
     @FXML
     //this is the action listener of the Not a player hyperlink which should redirect to signuppage
     private void SignupLinPressed(ActionEvent event) throws IOException {
-        
         Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
         mystage.setTitle("Sign Up");
         Scene scene = new Scene(root);
         Main.mystage.setScene(scene);
-    
     }
 
     //after validation to write a warning for user to enter proper email or valid pw ,,, emailValidation.setText("type of email error") and passwordValidation.setText("pw error")

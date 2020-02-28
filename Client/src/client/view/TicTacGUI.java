@@ -9,8 +9,7 @@ package client.view;
  *
  * @author elkholy
  */
-import Model.CurrentUser;
-import client.Connection.ClientSocket;
+import client.Connection.Protocol;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -35,38 +34,30 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class TicTacGUI { ///la dh wlaa 
+public class TicTacGUI {
 
     private PrintWriter out;
     private BufferedReader in;
     private Board board;
     private String me;
     private Stage stage;
-    private Scene se;
+    private Scene sc;
     private Button[] buttons = new Button[9];
-    private Socket socket;
-    Parent parent;
-    FXMLDocumentController myFXML = new FXMLDocumentController();
+    OnlineTicTacController myFXML = new OnlineTicTacController();
 
-    public TicTacGUI( String me, Stage stage,Scene se, Parent parent) throws IOException {
-       // this.socket = new Socket(host, port);
-        //this.out = new PrintWriter(socket.getOutputStream(), true);
-        //this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.out=ClientSocket.toServer;
-        this.in=ClientSocket.fromServer;
+    public TicTacGUI(String me, Stage stage, Scene sc) throws IOException {
         this.board = new Board();
         this.me = me;
-        this.parent = parent;
-        System.out.println(me);
         this.stage = stage;
+        this.sc = sc;
     }
 
     public void run() throws IOException {
-        System.out.println("Entered RUN "+CurrentUser.getUserName()); //TODO
+        System.out.println("Game On");
          
-//        Parent parent = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("OnlineTicTac.fxml"));
         Label winloselabel = (Label) parent.lookup("#winloselabel");
-        se = new Scene(parent);
+        Scene se = new Scene(parent);
         buttons[0] = (Button) se.lookup("#b1");
         buttons[1] = (Button) se.lookup("#b2");
         buttons[2] = (Button) se.lookup("#b3");
@@ -234,14 +225,12 @@ public class TicTacGUI { ///la dh wlaa
         });
         
         stage.setScene(se);
-        stage.show();
 
         Runnable r = new Runnable() {
             public void run() {
-                try { System.out.println("Thread is running");
+                try {
                     String line;
                     while ((line = in.readLine()) != null) {
-                        System.out.println("client recv "+line);
                         switch (line) {
                             case Protocol.MOVE_MADE:
                                 System.out.println("MOVE MADE"); //TODO

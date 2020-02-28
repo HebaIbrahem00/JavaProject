@@ -60,7 +60,7 @@
             <Text fx:id="usernameValidation" fill="#bb0404" layoutX="28.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="192.2569031708008" />
          </children>
       </AnchorPane>
-      <Label layoutX="204.0" layoutY="15.0" prefHeight="75.0" prefWidth="357.0" text="JOIN US NOW!" textFill="#e1af0a">
+      <Label fx:id="label" layoutX="204.0" layoutY="15.0" prefHeight="75.0" prefWidth="357.0" text="JOIN US NOW!" textFill="#e1af0a">
          <font>
             <Font name="Tempus Sans ITC" size="52.0" />
          </font>

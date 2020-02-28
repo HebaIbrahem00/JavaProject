@@ -12,6 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import static client.view.Main.mystage;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 /**
  *
@@ -67,7 +72,7 @@ public class SinglePlayerController implements Initializable {
                             //the game is not over yet, allow the computer to play its turn
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -96,7 +101,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -126,7 +131,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -156,7 +161,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -186,7 +191,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -216,7 +221,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -246,7 +251,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -276,7 +281,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -306,7 +311,7 @@ public class SinglePlayerController implements Initializable {
                         if (result == "") {
                             int pos = tictac.CpuTurn();
                             init();
-                            for(int i =0; i<9;i++)
+                            for(int i =0; i<=9;i++)
                             {
                                 if(i == pos)
                                 {
@@ -329,14 +334,15 @@ public class SinglePlayerController implements Initializable {
     }
     //when the replay button ispressed clear everything
     @FXML
-    private void replayPressed(ActionEvent event) {
-        System.out.println("replay");
-        GameOver = false;
-        for(int i = 0;i<9;i++)
-        {
-            buttons[i].setText("");
-            TicTacToeAI tictac = new TicTacToeAI();
-            winloselabel.setText("");
-        }
+    private void exitPressed(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        Scene scene = new Scene(root);
+        Main.mystage.setScene(scene);
+    }
+    @FXML
+    private void replayPressed(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("SinglePlayer.fxml"));
+        Scene scene = new Scene(root);
+        Main.mystage.setScene(scene);
     }
 }

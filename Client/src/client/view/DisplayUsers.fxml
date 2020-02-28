@@ -26,8 +26,6 @@
             <TableColumn fx:id="UsernameColumn" prefWidth="75.0" text="Username" />
             <TableColumn fx:id="EmailColumn" prefWidth="75.0" text="Email" />
             <TableColumn fx:id="StatusColumn" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="ScoreColumn" prefWidth="75.0" text="Score" />
-            <TableColumn fx:id="ActionColumn" prefWidth="75.0" text="Action" />
          </columns>
       </TableView>
       <Button fx:id="backBtn" layoutX="14.0" layoutY="470.0" mnemonicParsing="false" onAction="#BackPressed" prefHeight="63.0" prefWidth="63.0" style="-fx-background-color: transparent; -fx-background-radius: 7px;" textFill="#010b17">
