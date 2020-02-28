@@ -8,9 +8,8 @@ package client.view;
 
 /**
  *
- * @author omar
+ * @author elkholy
  */
-import client.Connection.*;
 import java.util.Arrays;
 
 public class Board{

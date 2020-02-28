@@ -41,9 +41,5 @@ public interface Protocol {
     String GAME_TIED = "GAME_TIED";
 
     String ERROR = "ERROR";
-    
-    String INVITATION = "INVITATION";
-    
-    String ACCEPTED = "ACCEPTED";
 
 }

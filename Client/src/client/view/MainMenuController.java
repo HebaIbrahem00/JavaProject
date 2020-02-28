@@ -33,6 +33,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void SinglePlayerMode(ActionEvent event) throws IOException {
+        System.out.println("hi");
         Parent root = FXMLLoader.load(getClass().getResource("SinglePlayer.fxml"));
         mystage.setTitle("Single Player");
         Scene scene = new Scene(root);
@@ -42,7 +43,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private void MultiPlayerMode(ActionEvent event) throws IOException {
         String json = ClientSocket.retriveOnlineUsers();
-        System.out.println(ClientSocket.retriveOnlineUsers());
         Gson g = new Gson();
         onlineUserList = g.fromJson(json, OnlineUserList[].class);
         
