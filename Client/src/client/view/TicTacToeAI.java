@@ -67,34 +67,13 @@ public class TicTacToeAI {
         winning.add(rightCol);
         winning.add(cross1);
         winning.add(cross2);
-        int i, j = 0;
+
         for (List l : winning) {
             if (PlayerPositions.containsAll(l)) {
-                for (i = 0; i <= 4; i += 2) {
-                    for (j = 0; j <= 4; j += 2) {
-                        gameBoard[i][j] = ' ';
-                    }
-                }
-                PlayerPositions.clear();
-                CpuPositions.clear();
                 return "Congrats you won!";
             } else if (CpuPositions.containsAll(l)) {
-                for (i = 0; i <= 4; i += 2) {
-                    for (j = 0; j <= 4; j += 2) {
-                        gameBoard[i][j] = ' ';
-                    }
-                }
-                PlayerPositions.clear();
-                CpuPositions.clear();
                 return "you lost, CPU Won!";
             } else if (PlayerPositions.size() + CpuPositions.size() == 9) {
-                for (i = 0; i <= 4; i += 2) {
-                    for (j = 0; j <= 4; j += 2) {
-                        gameBoard[i][j] = ' ';
-                    }
-                }
-                PlayerPositions.clear();
-                CpuPositions.clear();
                 return "No one won it's a tie";
             }
         }

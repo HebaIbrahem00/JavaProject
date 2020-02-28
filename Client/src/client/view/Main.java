@@ -2,6 +2,7 @@ package client.view;
 
 import Model.CurrentUser;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
         //initialize the stage to display the first scene (login)
         mystage = primaryStage;
         root = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -35,6 +37,7 @@ public class Main extends Application {
             public void run() {
                 try {
                     ClientSocket.initSocket("localhost", 7000);
+               
                 } catch (IOException ex) {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(AlertType.WARNING);
@@ -53,8 +56,14 @@ public class Main extends Application {
         ClientSocket.toServer.println(CurrentUser.getUserName());
     }
 
+    @FXML
+    private void miniHandler() {
+        System.out.println("Minimise.");
+    }
 
     public static void main(String[] args) {
         launch(args);
+        ClientSocket.toServer.println(Protocol.DISCONNECTED);
+        ClientSocket.toServer.println(CurrentUser.getUserName());
     }
 }
