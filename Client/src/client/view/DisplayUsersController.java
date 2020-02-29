@@ -135,6 +135,8 @@ public class DisplayUsersController implements Initializable {
                 }
                 else if (listen.startsWith(Protocol.CONNECTED)) {
                     System.out.println("protocol .connected received ");
+                    String XO=ClientSocket.fromServer.readLine();///here
+                    System.out.println(XO);
                     running.set(false);
                     Platform.runLater(() -> {
                         Parent root;
@@ -144,7 +146,7 @@ public class DisplayUsersController implements Initializable {
                             Scene Xscene = null;
                             onlineStage.setTitle("MultiPlayer");
                             running.set(false);
-                            connect("O", onlineStage, Xscene, root);
+                            connect(XO, onlineStage, Xscene, root);
                         } catch (IOException ex) {
                             Logger.getLogger(DisplayUsersController.class.getName()).log(Level.SEVERE, null, ex);
                         }
