@@ -31,7 +31,7 @@ import javafx.stage.StageStyle;
 public class ServerPage extends Application {
 
     Vector<CustomizedClientSocket> players_sockets = new Vector();
-    Board board = new Board(); 
+    Board board = new Board();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -80,14 +80,13 @@ public class ServerPage extends Application {
                     System.out.println("a client connected");
                     try {
                         ClientHandlerThread clientHandle = new ClientHandlerThread(client);
-                        clientHandle.start(); 
+                        clientHandle.start();
                         players_sockets.add(client);
                         players_sockets.lastElement().setThread(clientHandle);
                     } catch (IOException ex) {
                         Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                   
-                    
+
                     System.out.println("a client added to vector");
 
                 } catch (IOException ex) {
@@ -98,8 +97,8 @@ public class ServerPage extends Application {
         }
     }
 
-    
     public class ClientHandlerThread extends Thread {
+
         String player, opponent, message, request, password, email, userName;
         BufferedReader fromPlayer;
         PrintWriter toPlayer;
@@ -116,15 +115,15 @@ public class ServerPage extends Application {
         }
 
         public void updateBoard(PrintWriter out1, PrintWriter out2, BufferedReader in1, BufferedReader in2) throws IOException {
-           String line,line2 = null;
+            String line, line2 = null;
 
             try {
-                System.out.println("player "+player+" Entered update board"+Thread.currentThread());
-              //  while ((line = in1.readLine()) != null  || (line2 = in2.readLine()) != null) {
-                while(true){
+                System.out.println("player " + player + " Entered update board" + Thread.currentThread());
+                //  while ((line = in1.readLine()) != null  || (line2 = in2.readLine()) != null) {
+                while (true) {
                     line = in1.readLine();
                     line2 = in2.readLine();
-                if (line.equals(Protocol.MAKE_MOVE)) {
+                    if (line.equals(Protocol.MAKE_MOVE)) {
                         String move = in1.readLine();
                         String[] l = move.split(" ");
                         board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), "X");////////
@@ -146,12 +145,11 @@ public class ServerPage extends Application {
                         }
 
                     }
-                     if (line2.equals(Protocol.MAKE_MOVE)) {
+                    if (line2.equals(Protocol.MAKE_MOVE)) {
                         String move = in2.readLine();
                         String[] l = move.split(" ");
                         board.makeMove(Integer.parseInt(l[0]), Integer.parseInt(l[1]), "O");
-                        out1.println(Protocol.MOVE_MADE);
-                        out1.println(move);
+
                         switch (board.getStatus()) {
                             case "X":
                                 out2.println(Protocol.GAME_LOST);
@@ -166,6 +164,8 @@ public class ServerPage extends Application {
                                 out1.println(Protocol.GAME_TIED);
                                 break;
                         }
+                        out1.println(Protocol.MOVE_MADE);
+                        out1.println(move);
 
                     }
                 }
@@ -174,23 +174,24 @@ public class ServerPage extends Application {
                 e.printStackTrace();
                 System.exit(0);
             }
-  
-        }       
+
+        }
+
         @Override
         public void run() {
 
-                   while (true) {
+            while (true) {
                 serverloop += 1;
                 try {
-                      request = fromPlayer.readLine();
-                switch (request) {
+                    request = fromPlayer.readLine();
+                    switch (request) {
                         case Protocol.SIGNIN:
                             System.out.println("Protocol sign in received");
                             userName = fromPlayer.readLine();
                             password = fromPlayer.readLine();
                             players_sockets.lastElement().setUserName(userName);
                             players_sockets.lastElement().gettThread().setName(userName);
-                            
+
                             System.out.println("player added and is " + players_sockets.lastElement().getUserName());
                             System.out.println("NumOfPlayers = " + players_sockets.size());
                             toPlayer.println(User_DB.checkUser(userName, password));//authintication returned
@@ -224,7 +225,7 @@ public class ServerPage extends Application {
                                 System.out.println("server received opponent name  ");
                                 opponent = message.substring(9);
                                 System.out.println("opponent is " + opponent);
-                            
+
                                 for (CustomizedClientSocket p : players_sockets) {
 
                                     System.out.println(p.getUserName());
@@ -234,7 +235,7 @@ public class ServerPage extends Application {
                                         fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
                                         toOpponent = new PrintWriter(p.getOutputStream(), true);
                                         toOpponent.println(Protocol.INVITATION + ":" + userName);
-                                       p.gettThread().join();
+                                        p.gettThread().join();
                                     }
                                 }
                             } else if (message.startsWith("resultfrominvitation")) {
@@ -248,41 +249,39 @@ public class ServerPage extends Application {
                                 System.out.println("the one sent invitation is " + player);
 
                                 if (acceptance.equals(Protocol.ACCEPTED)) {
-                                    
+
                                     for (CustomizedClientSocket p : players_sockets) {
 
-                                        System.out.println("searching for who sent the invitatiion");   
-                                          if (player.equals(p.getUserName())) {
+                                        System.out.println("searching for who sent the invitatiion");
+                                        if (player.equals(p.getUserName())) {
                                             toPlayer = new PrintWriter(p.getOutputStream(), true);
                                             fromPlayer = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
                                             toPlayer.println(Protocol.CONNECTED);
-                                              toPlayer.println("X");////here
+                                            toPlayer.println("X");////here
                                             System.out.println("server sent protocol to " + p.getUserName());
                                         }
-                                        
-                                        if (opponent.equals(p.getUserName()))
-                                        { 
-                                          toOpponent = new PrintWriter(p.getOutputStream(), true);
-                                            fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
+
+                                        if (opponent.equals(p.getUserName())) {
+                                            toOpponent = new PrintWriter(p.getOutputStream(), true);
+                                            fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
                                             toOpponent.println(Protocol.CONNECTED);
                                             toOpponent.println("O");///here
-                                            System.out.println("we got opponent "+ p.getUserName()+"streams ");
-                                        }  
-                                      
-                                    }  updateBoard(toPlayer, toOpponent, fromPlayer, fromOpponent);
+                                            System.out.println("we got opponent " + p.getUserName() + "streams ");
+                                        }
+
+                                    }
+                                    updateBoard(toPlayer, toOpponent, fromPlayer, fromOpponent);
                                 }
-                     
-                            }
-                         
-                             else {//Here we shall handle when invitation is rejected
+
+                            } else {//Here we shall handle when invitation is rejected
                                 System.out.println("server received " + message);
                             }
-                            System.out.println("player "+userName+"finished choopse opp");
+                            System.out.println("player " + userName + "finished choopse opp");
                             break;
-                     
-                            default:
-                                System.out.println("test "+request+Thread.currentThread());
-                                
+
+                        default:
+                            System.out.println("test " + request + Thread.currentThread());
+
                     }
 
                 } catch (IOException ex) {
@@ -294,7 +293,7 @@ public class ServerPage extends Application {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                System.out.println("serverloop times=" + serverloop+Thread.currentThread());
+                System.out.println("serverloop times=" + serverloop + Thread.currentThread());
             }
         }
     }

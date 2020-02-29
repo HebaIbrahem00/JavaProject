@@ -56,7 +56,6 @@ public class DisplayUsersController implements Initializable {
 
     InvitationListen waitInvitation;
     private final AtomicBoolean running = new AtomicBoolean(true);
-  
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -109,11 +108,11 @@ public class DisplayUsersController implements Initializable {
 
         @Override
         public void run() {
-          
+
             while (running.get()) {
                 try {
-                        listen = ClientSocket.fromServer.readLine();
-                           
+                    listen = ClientSocket.fromServer.readLine();
+
                 } catch (IOException ex) {
                     Logger.getLogger(DisplayUsersController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -121,8 +120,8 @@ public class DisplayUsersController implements Initializable {
                     String[] invite = listen.split(":");
                     String fromWho = invite[1];
                     System.out.println("invitation is from>>" + fromWho);
-                      Platform.runLater(() ->{
-                      try {
+                    Platform.runLater(() -> {
+                        try {
                             invitationDetails("Game Invitation", "!!", fromWho + " wanna play, do u?", stage, scene, fromWho);
                         } catch (IOException ex) {
                             Logger.getLogger(DisplayUsersController.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,16 +130,16 @@ public class DisplayUsersController implements Initializable {
                         } catch (Exception ex) {
                             Logger.getLogger(DisplayUsersController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                }   );
-                }
-                else if (listen.startsWith(Protocol.CONNECTED)) {
+                    });
+                } else if (listen.startsWith(Protocol.CONNECTED)) {
                     System.out.println("protocol .connected received ");
-                    String XO=ClientSocket.fromServer.readLine();///here
-                    System.out.println(XO);
+
                     running.set(false);
                     Platform.runLater(() -> {
                         Parent root;
                         try {
+                            String XO = ClientSocket.fromServer.readLine();///here
+                            System.out.println(XO);
                             Stage onlineStage = new Stage();
                             root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
                             Scene Xscene = null;
@@ -152,9 +151,9 @@ public class DisplayUsersController implements Initializable {
                         }
                     });
 
+                } else {
+                    System.out.println("received in wrong place " + listen);
                 }
-                
-                else{System.out.println("received in wrong place "+listen);}
             }
         }
 
@@ -176,7 +175,7 @@ public class DisplayUsersController implements Initializable {
 
                 ClientSocket.toServer.println(msgToserver);
                 System.out.println("approval sent to server");
-       
+
             } else {
                 ClientSocket.toServer.println("don't");
                 System.out.println("decline sent to server");
@@ -184,7 +183,6 @@ public class DisplayUsersController implements Initializable {
 
         }
     }
-
 
     private static void connect(String s, Stage stage, Scene sc, Parent parent) throws IOException {
         TicTacGUI client = new TicTacGUI(s, stage, sc, parent);
