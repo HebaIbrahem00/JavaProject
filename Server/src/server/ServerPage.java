@@ -256,6 +256,7 @@ public class ServerPage extends Application {
                                             toPlayer = new PrintWriter(p.getOutputStream(), true);
                                             fromPlayer = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
                                             toPlayer.println(Protocol.CONNECTED);
+                                              toPlayer.println("X");////here
                                             System.out.println("server sent protocol to " + p.getUserName());
                                         }
                                         
@@ -264,6 +265,7 @@ public class ServerPage extends Application {
                                           toOpponent = new PrintWriter(p.getOutputStream(), true);
                                             fromOpponent = new BufferedReader(new InputStreamReader(p.getInputStream(),"UTF-8"));
                                             toOpponent.println(Protocol.CONNECTED);
+                                            toOpponent.println("O");///here
                                             System.out.println("we got opponent "+ p.getUserName()+"streams ");
                                         }  
                                       
