@@ -7,7 +7,6 @@ package server;
 
 /**
  *
- *
  * @author omar
  */
 public interface Protocol {

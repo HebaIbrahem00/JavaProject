@@ -19,7 +19,7 @@ public class Main extends Application {
 
     private static Parent root;
     public static Stage mystage;
-    ClientSocket CLIENT;
+    public static ClientSocket CLIENT;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -37,7 +37,7 @@ public class Main extends Application {
             public void run() {
                 try {
                     ClientSocket.initSocket("localhost", 7000);
-               
+
                 } catch (IOException ex) {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(AlertType.WARNING);

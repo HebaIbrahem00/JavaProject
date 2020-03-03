@@ -1,16 +1,15 @@
-
 package Model;
 
 /**
  * @author Lenovo
  */
-
 public class OnlineUser {
-     private String userName;
-     private String email;
-     private String userStatus;
-     private String score;
-     private String invite;
+
+    private String userName;
+    private String email;
+    private String userStatus;
+    private String score;
+    private String invite;
 
     public OnlineUser(String userName, String email, String userStatus, String score, String invite) {
         this.userName = userName;
@@ -59,6 +58,5 @@ public class OnlineUser {
     public void setInvite(String invite) {
         this.invite = invite;
     }
-
 
 }

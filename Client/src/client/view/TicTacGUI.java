@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client.view;
 
 /**
  *
- * @author elkholy
+ * @author elkohly
  */
 import Model.CurrentUser;
 import client.Connection.ClientSocket;
@@ -28,6 +23,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -48,12 +46,9 @@ public class TicTacGUI { ///la dh wlaa
     Parent parent;
     FXMLDocumentController myFXML = new FXMLDocumentController();
 
-    public TicTacGUI( String me, Stage stage,Scene se, Parent parent) throws IOException {
-       // this.socket = new Socket(host, port);
-        //this.out = new PrintWriter(socket.getOutputStream(), true);
-        //this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.out=ClientSocket.toServer;
-        this.in=ClientSocket.fromServer;
+    public TicTacGUI(String me, Stage stage, Scene se, Parent parent) throws IOException {
+        this.out = ClientSocket.toServer;
+        this.in = ClientSocket.fromServer;
         this.board = new Board();
         this.me = me;
         this.parent = parent;
@@ -62,8 +57,8 @@ public class TicTacGUI { ///la dh wlaa
     }
 
     public void run() throws IOException {
-        System.out.println("Entered RUN "+CurrentUser.getUserName()); //TODO
-         
+        System.out.println("Entered RUN " + CurrentUser.getUserName()); //TODO
+
 //        Parent parent = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Label winloselabel = (Label) parent.lookup("#winloselabel");
         se = new Scene(parent);
@@ -150,7 +145,6 @@ public class TicTacGUI { ///la dh wlaa
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("b1");
                 if (board.isValidMove(1, 1)) {
                     board.makeMove(1, 1, me);
                     out.println(Protocol.MAKE_MOVE);
@@ -168,7 +162,6 @@ public class TicTacGUI { ///la dh wlaa
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("b1");
                 if (board.isValidMove(1, 2)) {
                     board.makeMove(1, 2, me);
                     out.println(Protocol.MAKE_MOVE);
@@ -185,7 +178,6 @@ public class TicTacGUI { ///la dh wlaa
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("b1");
                 if (board.isValidMove(2, 0)) {
                     board.makeMove(2, 0, me);
                     out.println(Protocol.MAKE_MOVE);
@@ -202,7 +194,6 @@ public class TicTacGUI { ///la dh wlaa
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("b1");
                 if (board.isValidMove(2, 1)) {
                     board.makeMove(2, 1, me);
                     out.println(Protocol.MAKE_MOVE);
@@ -219,7 +210,6 @@ public class TicTacGUI { ///la dh wlaa
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("b1");
                 if (board.isValidMove(2, 2)) {
                     board.makeMove(2, 2, me);
                     out.println(Protocol.MAKE_MOVE);
@@ -232,21 +222,22 @@ public class TicTacGUI { ///la dh wlaa
             }
 
         });
-        
+
         stage.setScene(se);
         stage.show();
 
         Runnable r = new Runnable() {
             public void run() {
-                try { System.out.println("Thread is running");
+                try {
+                    System.out.println("Thread is running");
                     String line;
                     while ((line = in.readLine()) != null) {
-                        System.out.println("client recv "+line);
+                        System.out.println("client recv " + line);
                         switch (line) {
                             case Protocol.MOVE_MADE:
-                                System.out.println("MOVE MADE"); //TODO
+                                System.out.println("MOVE MADE");
                                 String move = in.readLine();
-                                System.out.println("MOVE " + move); // TODO
+                                System.out.println("MOVE is " + move);
                                 String[] l = move.split(" ");
                                 System.out.print(l);
                                 String p;
@@ -265,26 +256,33 @@ public class TicTacGUI { ///la dh wlaa
                                 parent.setDisable(false);
                                 Platform.runLater(() -> winloselabel.setText("Your turn. . ."));
                                 System.in.read(new byte[System.in.available()]); // Clears System.in
-                                System.out.println("DONE WITH  MOVE");
+                                System.out.println("DONE WITH MOVE");
                                 break;
                             case Protocol.GAME_WON:
                                 Platform.runLater(() -> winloselabel.setText("You won!"));
                                 parent.setDisable(true);
+                                TimeUnit.SECONDS.sleep(3);
+                                Platform.runLater(() -> stage.close());
                                 break;
                             case Protocol.GAME_LOST:
                                 in.close();
-                                socket.close();
                                 parent.setDisable(true);
                                 Platform.runLater(() -> winloselabel.setText("You lost :("));
+                                TimeUnit.SECONDS.sleep(3);
+                                Platform.runLater(() -> stage.close());
                                 break;
                             case Protocol.GAME_TIED:
                                 Platform.runLater(() -> winloselabel.setText("It was a tie"));
                                 parent.setDisable(true);
+                                TimeUnit.SECONDS.sleep(3);
+                                Platform.runLater(() -> stage.close());
                                 break;
                         }
                     }
                 } catch (IOException e) {
                     System.out.println("game ended");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TicTacGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         };
@@ -295,7 +293,5 @@ public class TicTacGUI { ///la dh wlaa
 
     private void refresh(int row, int col) {
         buttons[(col * 3) + row].setText(this.board.getTile(row, col));
-        // buttons[0].setText("o");
-
     }
 }

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="bt1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="730.0" style="-fx-background-color: rgba(6, 85, 122, 1);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.HardController">
+    <children>
+        <ImageView fitHeight="90.0" fitWidth="100.0" layoutX="440.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Tic_tac_toe%20-%20Copy.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="60.0" fitWidth="81.0" layoutX="647.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@unnamed.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="70.0" fitWidth="72.0" layoutX="664.0" layoutY="472.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Tic_tac_toe.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="83.0" fitWidth="72.0" layoutX="584.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Tic_tac_toe%20-%20Copy.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="111.0" fitWidth="61.0" layoutX="700.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@oxox.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="60.0" fitWidth="72.0" layoutX="692.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@unnamed%20-%20Copy.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="90.0" fitWidth="61.0" layoutX="523.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@xoxo.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="60.0" fitWidth="81.0" layoutX="118.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true" rotate="120.0">
+            <image>
+                <Image url="@unnamed.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="90.0" fitWidth="61.0" layoutX="77.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@xoxo.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="111.0" fitWidth="61.0" layoutX="173.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@oxox.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="70.0" fitWidth="72.0" layoutX="-33.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Tic_tac_toe.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="84.0" fitWidth="57.0" layoutX="15.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@oxox.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="84.0" fitWidth="57.0" layoutX="49.0" layoutY="500.0" pickOnBounds="true" preserveRatio="true" rotate="30.0">
+            <image>
+                <Image url="@Tic_tac_toe.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="84.0" fitWidth="57.0" layoutX="-14.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Tic_tac_toe%20-%20Copy.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="223.0" layoutY="28.0" prefHeight="57.0" prefWidth="287.0" text="TIC TAC TOE" textAlignment="CENTER" textFill="#e6e2f5">
+            <font>
+                <Font name="Footlight MT Light" size="53.0" />
+            </font>
+        </Label>
+        <Label fx:id="winloselabel" layoutX="3.0" layoutY="377.0" prefHeight="93.0" prefWidth="722.0" style="-fx-text-alignment: center; -fx-alignment: center;" textAlignment="CENTER" textFill="#f9fbfc">
+            <font>
+                <Font name="BatangChe" size="44.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="237.0" layoutY="460.0" prefHeight="55.0" prefWidth="57.0" style="-fx-background-image: url('replay.png'); -fx-border-color: white; -fx-border-width: 3; -fx-background-color: #e0930b; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-radius: ;">
+            <children>
+                <Button fx:id="replayBtn" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#replayPressed" prefHeight="43.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Replay">
+                    <font>
+                        <Font name="Footlight MT Light" size="24.0" />
+                    </font>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </AnchorPane>
+        <Label layoutX="64.0" layoutY="153.0" text="Player" textFill="#e0930b">
+            <font>
+                <Font name="Rockwell Extra Bold" size="28.0" />
+            </font>
+        </Label>
+        <Label layoutX="531.0" layoutY="153.0" text="Computer" textFill="#e0930b">
+            <font>
+                <Font name="Rockwell Extra Bold" size="28.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="237.0" layoutY="101.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="257.0">
+            <children>
+                <ImageView fitHeight="271.0" fitWidth="277.0" layoutX="-5.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@213667-200.png" />
+                    </image>
+                </ImageView>
+                <Button id="b1" fx:id="b1" layoutX="-13.0" mnemonicParsing="false" onAction="#b1pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b4" fx:id="b4" layoutX="-13.0" layoutY="86.0" mnemonicParsing="false" onAction="#b4pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b7" fx:id="b7" layoutX="-13.0" layoutY="183.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#b7pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b2" fx:id="b2" layoutX="83.0" mnemonicParsing="false" onAction="#b2pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b5" fx:id="b5" layoutX="85.0" layoutY="87.0" mnemonicParsing="false" onAction="#b5pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b8" fx:id="b8" layoutX="83.0" layoutY="183.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#b8pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b6" fx:id="b6" layoutX="183.0" layoutY="86.0" mnemonicParsing="false" onAction="#b6pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b9" fx:id="b9" layoutX="183.0" layoutY="183.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#b9pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+                <Button id="b3" fx:id="b3" layoutX="183.0" mnemonicParsing="false" onAction="#b3pressed" prefHeight="93.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-width: 2;" textFill="#e0930b">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="41.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <Label fx:id="cpChoice" layoutX="567.0" layoutY="215.0" prefHeight="93.0" prefWidth="98.0" style="-fx-alignment: center;" text="O" textFill="#fbfbfa">
+            <font>
+                <Font name="Gill Sans MT Bold" size="69.0" />
+            </font>
+        </Label>
+        <Label fx:id="playerChoice" layoutX="70.0" layoutY="215.0" prefHeight="93.0" prefWidth="98.0" style="-fx-alignment: center;" text="X" textFill="#fbfbfa">
+            <font>
+                <Font name="Gill Sans MT Bold" size="69.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="399.0" layoutY="457.0" prefHeight="55.0" prefWidth="57.0" style="-fx-background-image: url('replay.png'); -fx-border-color: white; -fx-border-width: 3; -fx-background-color: #e0930b; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-radius: ;">
+            <children>
+                <Button fx:id="exitBtn1" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#exitPressed" prefHeight="43.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Exit">
+                    <font>
+                        <Font name="Footlight MT Light" size="24.0" />
+                    </font>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </AnchorPane>
+    </children>
+</AnchorPane>

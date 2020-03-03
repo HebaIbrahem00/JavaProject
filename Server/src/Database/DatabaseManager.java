@@ -1,4 +1,3 @@
-
 package Database;
 
 import java.sql.Connection;
@@ -10,11 +9,11 @@ import java.sql.SQLException;
  * @author Lenovo
  */
 public class DatabaseManager {
+
     private static final String dbUrl = "jdbc:mysql://localhost:3306/xor_db";
     private static final String dbUsername = "root";
     private static final String dbPassword = "";
     public static Connection conn;
-    
 
     //A static function used to connect to database
     //and it returns a connection to databse that is used later to execute querry
@@ -35,7 +34,6 @@ public class DatabaseManager {
         }
         return conn;
     }
-    
 
     //A static function used to close the databse connection
     public static void DISCONNECT() throws SQLException {

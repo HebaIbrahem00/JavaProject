@@ -10,6 +10,7 @@ package client.Connection;
  *
  * @author omar
  */
+import client.view.*;
 import java.util.Arrays;
 
 public class Board{

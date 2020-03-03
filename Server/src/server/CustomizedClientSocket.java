@@ -7,13 +7,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketImpl;
 import java.net.UnknownHostException;
+
 public class CustomizedClientSocket extends Socket {
 
     String userName;
-     BufferedReader fromServer;
+    BufferedReader fromServer;
     PrintWriter toServer;
     Thread t;
- 
 
     public CustomizedClientSocket(String address, int port) throws UnknownHostException, IOException {
 
@@ -31,19 +31,18 @@ public class CustomizedClientSocket extends Socket {
     public String getUserName() {
         return this.userName;
     }
-   public void setThread(Thread _t)
-   {
-    t=_t;
 
+    public void setThread(Thread _t) {
+        t = _t;
 
-     }
-        public Thread gettThread()
-      {
-          return t;
-            }
+    }
+
+    public Thread gettThread() {
+        return t;
+    }
+
     public void setUserName(String _userName) {
         this.userName = _userName;
     }
-
 
 }

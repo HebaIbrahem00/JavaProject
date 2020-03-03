@@ -15,19 +15,19 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="730.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.LoginController">
     <stylesheets>
-        <URL value="@../../../ComputerVsPlayer/src/computervsplayer/signingui.css" />
+        <URL value="@./ComputerVsPlayer/src/computervsplayer/signingui.css" />
     </stylesheets>
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="730.0" style="-fx-background-color: rgba(3, 66, 155, 0.99);">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="498.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" rotate="30.0">
                <image>
-                  <Image url="@../../../tic.png" />
+                  <Image url="@./tic.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="138.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="40.0">
                <image>
-                  <Image url="@../../../toe.png" />
+                  <Image url="@./toe.png" />
                </image>
             </ImageView>
             <AnchorPane layoutX="257.0" layoutY="160.0" prefHeight="307.0" prefWidth="250.0" style="-fx-background-color: rgba(2, 39, 90, 0.84); -fx-background-radius: 0px;">
@@ -64,12 +64,12 @@
             <Line endX="170.42262268066406" endY="12.743907928466797" layoutX="552.0" layoutY="300.0" rotate="90.0" startX="-259.2258605957031" startY="12.74386978149414" stroke="#e0930b" strokeWidth="6.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-29.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" rotate="20.0">
                <image>
-                  <Image url="@../../../tac.png" />
+                  <Image url="@./tac.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="96.0" fitWidth="101.0" layoutX="600.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" rotate="40.0">
                <image>
-                  <Image url="@../../../tac.png" />
+                  <Image url="@./tac.png" />
                </image>
             </ImageView>
             <Line endX="170.42262268066406" endY="12.743907928466797" layoutX="302.0" layoutY="300.0" rotate="90.0" startX="-259.2258605957031" startY="12.74386978149414" stroke="#e0930b" strokeWidth="6.0" />

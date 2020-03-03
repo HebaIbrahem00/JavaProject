@@ -1,4 +1,3 @@
-
 package client.view;
 
 import client.Connection.ClientSocket;
@@ -41,19 +40,19 @@ public class SignUpController implements Initializable {
     @FXML
     //signup button action handler
     private void signupPressed(ActionEvent event) throws IOException {
-       
+
         System.out.println("You clicked me!");
         String userName = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String isDataValid = ClientSocket.sendSignUpData(userName, email, password);
-        
+
         switch (isDataValid) {
             case "validData":
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Welcome");
                 alert.setHeaderText(null);
-                alert.setContentText("Welcome, "+userName);
+                alert.setContentText("Welcome, " + userName);
                 alert.showAndWait();
                 Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
                 Scene scene = new Scene(root);
@@ -67,7 +66,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     //login hyper link to redirect to login page
-    
+
     private void LoginLinkPressed(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root);

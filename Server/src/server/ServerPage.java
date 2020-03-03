@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package server;
 
 import Database.User_DB;
@@ -26,7 +21,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author lamis
+ * @author omar
  */
 public class ServerPage extends Application {
 
@@ -51,6 +46,7 @@ public class ServerPage extends Application {
             public void handle(ActionEvent event) {
                 try {
                     serverInfo.server.close();
+                    System.exit(1);
                 } catch (IOException ex) {
                     Logger.getLogger(ServerPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -116,11 +112,12 @@ public class ServerPage extends Application {
 
         public void updateBoard(PrintWriter out1, PrintWriter out2, BufferedReader in1, BufferedReader in2) throws IOException {
             String line, line2 = null;
+            boolean gameEnded = false;
 
             try {
                 System.out.println("player " + player + " Entered update board" + Thread.currentThread());
                 //  while ((line = in1.readLine()) != null  || (line2 = in2.readLine()) != null) {
-                while (true) {
+                while (!gameEnded) {
                     line = in1.readLine();
                     line2 = in2.readLine();
                     if (line.equals(Protocol.MAKE_MOVE)) {
@@ -133,14 +130,17 @@ public class ServerPage extends Application {
                             case "X":
                                 out2.println(Protocol.GAME_LOST);
                                 out1.println(Protocol.GAME_WON);
+                                gameEnded = true;
                                 break;
                             case "O":
                                 out2.println(Protocol.GAME_WON);
                                 out1.println(Protocol.GAME_LOST);
+                                gameEnded = true;
                                 break;
                             case "tie":
                                 out2.println(Protocol.GAME_TIED);
                                 out1.println(Protocol.GAME_TIED);
+                                gameEnded = true;
                                 break;
                         }
 

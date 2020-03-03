@@ -8,7 +8,7 @@ package client.view;
 
 /**
  *
- * @author elkholy
+ * @author omar
  */
 import java.util.Arrays;
 

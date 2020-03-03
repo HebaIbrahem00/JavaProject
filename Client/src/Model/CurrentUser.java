@@ -1,6 +1,7 @@
 package Model;
 
 public class CurrentUser {
+
     static private String userName;
     static private String email;
     static private String userStatus;

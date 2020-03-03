@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
  * @author lamis
  */
 public class MainMenuController implements Initializable {
+
     static public OnlineUserList[] onlineUserList;
 
     @FXML
@@ -34,7 +35,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private void SinglePlayerMode(ActionEvent event) throws IOException {
         System.out.println("hi");
-        Parent root = FXMLLoader.load(getClass().getResource("SinglePlayer.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LevelsMenu.fxml"));
         mystage.setTitle("Single Player");
         Scene scene = new Scene(root);
         mystage.setScene(scene);
@@ -45,7 +46,7 @@ public class MainMenuController implements Initializable {
         String json = ClientSocket.retriveOnlineUsers();
         Gson g = new Gson();
         onlineUserList = g.fromJson(json, OnlineUserList[].class);
-        
+
         Parent root = FXMLLoader.load(getClass().getResource("DisplayUsers.fxml"));
         Scene scene = new Scene(root);
         mystage.setTitle("Display Users");

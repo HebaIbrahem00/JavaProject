@@ -84,7 +84,6 @@ public class DisplayUsersController implements Initializable {
         UsernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         StatusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         ClientSocket.toServer.println(Protocol.CHOOSEOPPONENT);
         waitInvitation = new InvitationListen();
 
